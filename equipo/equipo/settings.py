@@ -128,13 +128,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 import os
-import logging.config
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,  # Keep the default Django loggers
+    'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
             'format': '{levelname} {asctime} {module} {message}',
@@ -149,7 +148,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',  # Set the level to capture
             'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs/django_debug.log'),  # Log file path
+            'filename': os.path.join(BASE_DIR, 'logs/debug.log'),
             'formatter': 'verbose',
         },
         'console': {
@@ -161,13 +160,12 @@ LOGGING = {
     'loggers': {
         'django': {
             'handlers': ['file', 'console'],
-            'level': 'DEBUG',  # Capture all Django-related logs at debug level
+            'level': 'DEBUG',
             'propagate': True,
         },
-        # You can define other loggers here for your custom apps
-        'e_app': {  # Replace 'e_app' with your app's name
+        'e_app': {
             'handlers': ['file', 'console'],
-            'level': 'DEBUG',  # Capture all logs for the app at debug level
+            'level': 'DEBUG',
             'propagate': False,
         },
     },
