@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Consultation Report</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+    <style>
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-header {
+            margin-bottom: 20px;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container form-container">
+        <div class="form-header text-center">
+            <h1>Generate Consultation Report</h1>
+        </div>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="id_clinic_name" class="form-label">Clinic Name</label>
+                    <input type="text" name="clinic_name" id="id_clinic_name" class="form-control" placeholder="Clinic Name Placeholder" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="id_physician_name" class="form-label">Physician Name</label>
+                    <input type="text" name="physician_name" id="id_physician_name" class="form-control" placeholder="Physician Name Placeholder" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="id_clinic_logo" class="form-label">Clinic Logo</label>
+                <input type="file" name="clinic_logo" id="id_clinic_logo" class="form-control-file" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="id_physician_contact" class="form-label">Physician Contact</label>
+                    <input type="text" name="physician_contact" id="id_physician_contact" class="form-control" placeholder="Physician Contact Placeholder" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="id_patient_first_name" class="form-label">Patient First Name</label>
+                    <input type="text" name="patient_first_name" id="id_patient_first_name" class="form-control" placeholder="Patient First Name Placeholder" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="id_patient_last_name" class="form-label">Patient Last Name</label>
+                    <input type="text" name="patient_last_name" id="id_patient_last_name" class="form-control" placeholder="Patient Last Name Placeholder" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="id_patient_dob" class="form-label">Patient DOB</label>
+                    <input type="date" name="patient_dob" id="id_patient_dob" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="id_patient_contact" class="form-label">Patient Contact</label>
+                <input type="text" name="patient_contact" id="id_patient_contact" class="form-control" placeholder="Patient Contact Placeholder" required>
+            </div>
+            <div class="form-group">
+                <label for="id_chief_complaint" class="form-label">Chief Complaint</label>
+                <textarea name="chief_complaint" id="id_chief_complaint" class="form-control" rows="5" placeholder="Chief Complaint Placeholder" required></textarea>
+                <script>
+                    CKEDITOR.replace('id_chief_complaint', {
+                        toolbar: [
+                            { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline' ] },
+                            { name: 'paragraph', items: [ 'NumberedList', 'BulletedList' ] },
+                            { name: 'links', items: [ 'Link', 'Unlink' ] },
+                            { name: 'insert', items: [ 'Image' ] },
+                            { name: 'styles', items: [ 'Styles', 'Format' ] }
+                        ],
+                        height: 200
+                    });
+                </script>
+            </div>
+            <div class="form-group">
+                <label for="id_consultation_note" class="form-label">Consultation Note</label>
+                <textarea name="consultation_note" id="id_consultation_note" class="form-control" rows="5" placeholder="Consultation Note Placeholder" required></textarea>
+                <script>
+                    CKEDITOR.replace('id_consultation_note', {
+                        toolbar: [
+                            { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline' ] },
+                            { name: 'paragraph', items: [ 'NumberedList', 'BulletedList' ] },
+                            { name: 'links', items: [ 'Link', 'Unlink' ] },
+                            { name: 'insert', items: [ 'Image' ] },
+                            { name: 'styles', items: [ 'Styles', 'Format' ] }
+                        ],
+                        height: 200
+                    });
+                </script>
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary">Generate PDF</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

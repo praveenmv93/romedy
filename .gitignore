@@ -1,0 +1,22 @@
+# Exclude virtual environments
+venv/
+env/
+
+# Exclude PyCharm/IntelliJ IDEA project settings
+.idea/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Other typical exclusions
+.DS_Store
+*.log
+*.sqlite3
+*.db
+*.swp
+
+# VSCode settings (if applicable)
+.vscode/

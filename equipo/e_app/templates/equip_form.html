@@ -1,0 +1,84 @@
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<script src="//cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replaceAll('ckeditor');
+</script>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Patient Consultation Report</h4>
+                </div>
+                <div class="card-body">
+                    <form id="consultationForm" method="POST" action="{% url 'generate_report' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <!-- Clinic Information -->
+                        <div class="mb-3">
+                            <label for="clinic_name" class="form-label">Clinic Name:</label>
+                            <input type="text" class="form-control" id="clinic_name" name="clinic_name" placeholder="Clinic Name Placeholder" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="physician_name" class="form-label">Physician Name:</label>
+                            <input type="text" class="form-control" id="physician_name" name="physician_name" placeholder="Physician Name Placeholder" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="clinic_logo" class="form-label">Clinic Logo:</label>
+                            <input type="file" class="form-control" id="clinic_logo" name="clinic_logo" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="physician_contact" class="form-label">Physician Contact:</label>
+                            <input type="text" class="form-control" id="physician_contact" name="physician_contact" placeholder="Physician Contact Placeholder" required>
+                        </div>
+
+                        <!-- Patient Information -->
+                        <div class="mb-3">
+                            <label for="patient_first_name" class="form-label">Patient First Name:</label>
+                            <input type="text" class="form-control" id="patient_first_name" name="patient_first_name" placeholder="Patient First Name Placeholder" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="patient_last_name" class="form-label">Patient Last Name:</label>
+                            <input type="text" class="form-control" id="patient_last_name" name="patient_last_name" placeholder="Patient Last Name Placeholder" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="patient_dob" class="form-label">Patient Date of Birth:</label>
+                            <input type="date" class="form-control" id="patient_dob" name="patient_dob" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="patient_contact" class="form-label">Patient Contact:</label>
+                            <input type="text" class="form-control" id="patient_contact" name="patient_contact" placeholder="Patient Contact Placeholder" required>
+                        </div>
+
+                        <!-- Chief Complaint -->
+                        <div class="mb-3">
+                            <label for="chief_complaint" class="form-label">Chief Complaint:</label>
+                            <textarea id="chief_complaint" name="chief_complaint" class="form-control ckeditor" maxlength="5000" placeholder="Max 5000 characters allowed"></textarea>
+                        </div>
+
+                        <!-- Consultation Note -->
+                        <div class="mb-3">
+                            <label for="consultation_note" class="form-label">Consultation Note:</label>
+                            <textarea id="consultation_note" name="consultation_note" class="form-control ckeditor" maxlength="5000" placeholder="Max 5000 characters allowed"></textarea>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">Generate PDF Report</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
