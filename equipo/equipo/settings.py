@@ -127,3 +127,53 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+import os
+import logging.config
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,  # Keep the default Django loggers
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',  # Set the level to capture
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs/django_debug.log'),  # Log file path
+            'formatter': 'verbose',
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file', 'console'],
+            'level': 'DEBUG',  # Capture all Django-related logs at debug level
+            'propagate': True,
+        },
+        # You can define other loggers here for your custom apps
+        'e_app': {  # Replace 'e_app' with your app's name
+            'handlers': ['file', 'console'],
+            'level': 'DEBUG',  # Capture all logs for the app at debug level
+            'propagate': False,
+        },
+    },
+}
+
+# Ensure the log directory exists
+log_dir = os.path.join(BASE_DIR, 'logs')
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)

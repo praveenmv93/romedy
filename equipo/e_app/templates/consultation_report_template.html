@@ -59,26 +59,26 @@
     </style>
 </head>
 <body>
-    <div class="header">
-        {% if clinic_logo %}
-            <img src="{{ clinic_logo }}" alt="Clinic Logo">
-        {% endif %}
-        <h1>{{ clinic_name }}</h1>
-    </div>
+<div class="header">
+    {% if clinic_logo %}
+    <img src="{{ clinic_logo }}" alt="Clinic Logo">
+    {% endif %}
+    <h1>{{ clinic_name }}</h1>
+</div>
 
-    <div class="content">
-        <h2>Patient Details</h2>
-        <p><strong>Name:</strong> {{ patient_first_name }} {{ patient_last_name }}</p>
-        <p><strong>Date of Birth:</strong> {{ patient_dob }}</p>
-        <p><strong>Contact:</strong> {{ patient_contact }}</p>
+<div class="content">
+    <h2>Patient Details</h2>
+    <p><strong>Name:</strong> {{ patient_first_name }} {{ patient_last_name }}</p>
+    <p><strong>Date of Birth:</strong> {{ patient_dob }}</p>
+    <p><strong>Contact:</strong> {{ patient_contact }}</p>
 
-        <h2>Consultation Details</h2>
-        <p><strong>Chief Complaint:</strong> {{ chief_complaint|safe }}</p>
-        <p><strong>Consultation Note:</strong> {{ consultation_note|safe }}</p>
-    </div>
+    <h2>Consultation Details</h2>
+    <p><strong>Chief Complaint:</strong> {{ chief_complaint|safe }}</p>
+    <p><strong>Consultation Note:</strong> {{ consultation_note|safe }}</p>
+</div>
 
-    <div class="footer">
-        <p>This report is generated on {{ timestamp }} from {{ ip_address }} - Page <span class="page-number"></span></p>
-    </div>
+<div class="footer">
+    <p>This report is generated on {{ timestamp }} from {{ ip_address }} - Page <span class="page-number"></span></p>
+</div>
 </body>
 </html>
