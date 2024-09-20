@@ -1,6 +1,7 @@
 # Exclude virtual environments
 venv/
 env/
+logs/
 
 # Exclude PyCharm/IntelliJ IDEA project settings
 .idea/
