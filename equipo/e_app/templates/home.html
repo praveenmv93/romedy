@@ -1,0 +1,223 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Health, Our Priority</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+        }
+
+        header {
+            background: linear-gradient(135deg, #4CAF50, #2E8B57);
+            color: white;
+            text-align: center;
+            padding: 3em 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            background-color: #e9ecef;
+            text-align: center;
+            padding: 1.5em 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            padding: 0.7em 1.5em;
+            margin: 0 1em;
+            border-radius: 8px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .hero {
+            background: url('{% static "images/hero-image.jpg" %}') center/cover no-repeat;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            max-width: 900px;
+            padding: 2em;
+        }
+
+        .hero-content h2 {
+            font-size: 3.5em;
+            margin-bottom: 0.7em;
+        }
+
+        .hero-content p {
+            font-size: 1.3em;
+            line-height: 1.8;
+        }
+
+        .services {
+            padding: 4em 2em;
+            text-align: center;
+        }
+
+        .services h2 {
+            font-size: 2.5em;
+            margin-bottom: 1.5em;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3em;
+            padding: 0 2em;
+        }
+
+        .service-item {
+            background-color: white;
+            padding: 3em;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-item img {
+            max-width: 120px;
+            margin-bottom: 1.5em;
+        }
+
+        .service-item h3 {
+            margin-bottom: 0.8em;
+            font-size: 1.6em;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 2em 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                height: 400px;
+            }
+
+            .hero-content h2 {
+                font-size: 2.5em;
+            }
+
+            .service-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Your Health, Our Priority</h1>
+    </header>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="{% url 'generate_pdf' %}">Doctors</a>
+        <a href="{% url 'generate_csv' %}">Generate</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h2>Welcome to a Healthier You</h2>
+            <p>Providing comprehensive and compassionate healthcare services for you and your family.</p>
+        </div>
+    </div>
+
+    <section class="services" id="services">
+        <h2>Our Services</h2>
+        <div class="service-grid">
+            <div class="service-item">
+                <img src="{% static 'images/hiny-green-plus-sign.webp' %}" alt="General Checkup">
+                <h3>General Checkups</h3>
+                <p>Regular checkups for your overall health and well-being.</p>
+            </div>
+            <div class="service-item">
+                <img src="{% static 'images/specialist-care.png' %}" alt="Specialist Care">
+                <h3>Specialist Care</h3>
+                <p>Expert care from our team of specialized doctors.</p>
+            </div>
+            <div class="service-item">
+                <img src="{% static 'images/emergency-services.png' %}" alt="Emergency Services">
+                <h3>Emergency Services</h3>
+                <p>24/7 emergency care for critical situations.</p>
+            </div>
+            <div class="service-item">
+                <img src="{% static 'images/pharmacy.png' %}" alt="Pharmacy">
+                <h3>Pharmacy</h3>
+                <p>Convenient on-site pharmacy for all your medication needs.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Your Health Clinic. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('nav a');
+            const sections = document.querySelectorAll('section');
+
+            function setActiveLink() {
+                let currentSection = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (window.scrollY >= sectionTop - 50) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(currentSection)) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', setActiveLink);
+            setActiveLink();
+        });
+    </script>
+</body>
+
+</html>
