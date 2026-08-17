@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Resources & Insights - Your Health Clinic</title>
+    
+    <!-- Google Fonts & Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Modern Scroll Setup */
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        html::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Calm Linen / Sage Palette */
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FAF6F0; /* Warm eye-friendly linen */
+            margin: 0;
+            padding: 0;
+            color: #2b302c; /* Softer readable slate-black */
+            line-height: 1.75;
+            letter-spacing: 0.2px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Calm Breathing Rings Loader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #FAF6F0;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s ease;
+        }
+        
+        #preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .breathing-loader-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .breathing-ring {
+            position: absolute;
+            border: 2px solid rgba(11, 76, 43, 0.15);
+            border-radius: 50%;
+            animation: breath 5s ease-in-out infinite;
+        }
+
+        .ring-1 {
+            width: 60px;
+            height: 60px;
+            animation-delay: 0s;
+        }
+
+        .ring-2 {
+            width: 100px;
+            height: 100px;
+            animation-delay: 0.7s;
+        }
+
+        .ring-3 {
+            width: 140px;
+            height: 140px;
+            animation-delay: 1.4s;
+        }
+
+        .loader-center-icon {
+            font-size: 2.2rem;
+            animation: heartBeatCalm 2.2s ease-in-out infinite;
+            z-index: 10;
+        }
+
+        @keyframes breath {
+            0%, 100% {
+                transform: scale(0.85);
+                opacity: 0.25;
+                border-color: rgba(11, 76, 43, 0.1);
+            }
+            50% {
+                transform: scale(1.12);
+                opacity: 0.85;
+                border-color: rgba(11, 76, 43, 0.35);
+                box-shadow: 0 0 15px rgba(11, 76, 43, 0.05);
+            }
+        }
+
+        @keyframes heartBeatCalm {
+            0%, 100% { transform: scale(1); opacity: 0.75; }
+            50% { transform: scale(1.06); opacity: 1; }
+        }
+        
+        .preloader-text {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #0b4c2b;
+            letter-spacing: 2px;
+            animation: pulse 1.8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Action Loader Overlay */
+        #action-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(250, 246, 240, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 9998;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        
+        #action-loader.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Header & Nav */
+        header {
+            background: linear-gradient(135deg, #0b4c2b, #1d6f3e);
+            color: white;
+            text-align: center;
+            padding: 2.2em 0;
+            border-bottom: 4px solid #C5A880;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.4em;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        nav {
+            background-color: rgba(250, 246, 240, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            text-align: center;
+            padding: 1.2em 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            text-decoration: none !important; /* Remove Underlines */
+            color: #495057;
+            padding: 0.65em 1.6em;
+            margin: 0 0.25em;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.92rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        nav a:hover,
+        nav a.active {
+            background-color: #0b4c2b;
+            color: white !important;
+            box-shadow: 0 4px 12px rgba(11, 76, 43, 0.12);
+        }
+
+        /* Content Hub Grid */
+        .hub-container {
+            max-width: 1200px;
+            margin: 4em auto;
+            padding: 0 1.5em;
+            flex-grow: 1;
+        }
+
+        .hub-header {
+            text-align: center;
+            margin-bottom: 3.5em;
+        }
+
+        .hub-header h2 {
+            font-size: 2.4em;
+            font-weight: 800;
+            color: #0b4c2b;
+            margin-bottom: 0.4em;
+        }
+
+        .hub-header p {
+            color: #5c635e;
+            font-size: 1.1rem;
+        }
+
+        /* Tab Controls */
+        .nav-tabs-custom {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 3em;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding-bottom: 1.5em;
+        }
+
+        .tab-btn {
+            background: none;
+            border: 1px solid rgba(11, 76, 43, 0.2);
+            color: #0b4c2b;
+            padding: 0.6em 1.8em;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .tab-btn:hover,
+        .tab-btn.active {
+            background-color: #0b4c2b;
+            color: white;
+            border-color: #0b4c2b;
+            box-shadow: 0 4px 15px rgba(11, 76, 43, 0.15);
+        }
+
+        /* Article Cards layout */
+        .tab-content-panel {
+            display: none;
+            animation: fadeInTab 0.5s ease forwards;
+        }
+
+        .tab-content-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeInTab {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .article-card {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.015);
+            border: 1px solid rgba(0, 0, 0, 0.015);
+            padding: 3em;
+            margin-bottom: 2.5em;
+        }
+
+        .article-card h3 {
+            font-weight: 800;
+            color: #0b4c2b;
+            margin-top: 0;
+            margin-bottom: 0.8em;
+            font-size: 1.6em;
+        }
+
+        .article-meta {
+            font-size: 0.85rem;
+            color: #C5A880;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5em;
+        }
+
+        .article-body p {
+            color: #3b423d;
+            margin-bottom: 1.5em;
+            font-size: 1.05rem;
+        }
+
+        .article-body ul {
+            padding-left: 1.5em;
+            margin-bottom: 1.5em;
+        }
+
+        .article-body li {
+            margin-bottom: 0.5em;
+            color: #3b423d;
+        }
+
+        footer {
+            background-color: #111412;
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            padding: 3.5em 0;
+            font-size: 0.9rem;
+        }
+        
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+
+
+    <!-- Active Loading Screen Overlay -->
+    <div id="action-loader">
+        <div class="breathing-loader-container">
+            <div class="breathing-ring ring-1"></div>
+            <div class="breathing-ring ring-2"></div>
+            <div class="breathing-ring ring-3"></div>
+            <div class="loader-center-icon">💚</div>
+        </div>
+        <div class="preloader-text" id="action-loader-text">Navigating securely...</div>
+    </div>
+
+    <header>
+        <h1>Your Health, Our Priority</h1>
+    </header>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/#services">Services</a>
+        <a href="/#doctors">Doctors</a>
+        <a href="/#contact">Contact</a>
+        <a href="{% url 'knowledge_hub' %}" class="active">Insights</a>
+        <a href="{% url 'dating_request' %}" style="color: #ff758c; font-weight: 600;">Coffee Date? 💖</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'book_appointment' %}">Book Appointment</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </nav>
+
+    <div class="hub-container">
+        <div class="hub-header">
+            <h2>Medical Knowledge & Insights</h2>
+            <p>Explore precautions, recent facility updates, physician blogs, and condition reports designed to keep you informed without stress.</p>
+        </div>
+
+        <div class="nav-tabs-custom">
+            <button class="tab-btn active" data-tab="precautions">Patient Precautions</button>
+            <button class="tab-btn" data-tab="facilities">New Facilities & News</button>
+            <button class="tab-btn" data-tab="blog">Physician Blog</button>
+            <button class="tab-btn" data-tab="analysis">Conditions Analysis</button>
+        </div>
+
+        <!-- 1. Patient Precautions Tab -->
+        <div class="tab-content-panel active" id="precautions">
+            <div class="article-card">
+                <span class="article-meta">Preventative Care • Hygiene Guide</span>
+                <h3>Seasonal Wellness & Influenza Precautions</h3>
+                <div class="article-body">
+                    <p>Maintaining strong immunity throughout seasonal changes is essential to reduce the risk of common respiratory infections. Our medical board recommends following these clinical guidelines to protect yourself and your family:</p>
+                    <ul>
+                        <li><strong>Frequent Sanitization:</strong> Clean hands regularly with soap and warm water for at least 20 seconds, or use an alcohol-based hand rub.</li>
+                        <li><strong>Hydration Guidelines:</strong> Consume at least 2.5 liters of filtered water daily to preserve mucosal barrier defenses in the nasal passage.</li>
+                        <li><strong>Timely Immunization:</strong> Schedule your annual influenza vaccination during late autumn to allow antibodies to build before the winter peak.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="article-card">
+                <span class="article-meta">Daily Routine • Sleep Hygiene</span>
+                <h3>Optimizing Circadian Rhythms for Stress Relief</h3>
+                <div class="article-body">
+                    <p>Chronic sleep deprivation is directly linked to elevated cortisol levels and systemic inflammation. Establish a consistent resting pattern to restore neurological function:</p>
+                    <ul>
+                        <li><strong>Consistent Schedule:</strong> Go to bed and wake up at the same hour daily, even during weekends, to maintain melatonin consistency.</li>
+                        <li><strong>Digital Detoxing:</strong> Discontinue smartphone or screen usage at least 60 minutes before retiring to protect photopic vision parameters.</li>
+                        <li><strong>Cool Rest Environment:</strong> Maintain a dark room temperature of approximately 65°F (18°C) to support core body cooling necessary for deep sleep.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. New Facilities Tab -->
+        <div class="tab-content-panel" id="facilities">
+            <div class="article-card">
+                <span class="article-meta">Clinic Announcement • New Wing</span>
+                <h3>Inauguration of the Cardiopulmonary Wellness Wing</h3>
+                <div class="article-body">
+                    <p>We are pleased to announce the opening of our new Cardiopulmonary diagnostics facility, incorporating advanced imaging technologies to support cardiovascular health. The wing offers low-dose computed tomography (CT) scanners and stress-testing labs.</p>
+                    <p>Our focus is to provide high-resolution, quick results under a calm environment. The new suites feature soft ambient light and soundproof acoustic panels to eliminate clinical anxiety during testing.</p>
+                </div>
+            </div>
+            
+            <div class="article-card">
+                <span class="article-meta">Technology Update • Patient Experience</span>
+                <h3>Self-Check-In Desks & Direct Physician Communication</h3>
+                <div class="article-body">
+                    <p>To reduce queuing times at the main lobby reception, we have deployed secure self-check-in kiosks. Registered patients can scan their custom QR code to notify the nursing team of their arrival immediately.</p>
+                    <p>Additionally, patient profiles are now integrated with our messaging gateway, enabling direct follow-up alerts and secure prescription receipts straight to your mobile devices.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Physician Blog Tab -->
+        <div class="tab-content-panel" id="blog">
+            <div class="article-card">
+                <span class="article-meta">Dr. Sarah Jenkins • Cardiology Insights</span>
+                <h3>Understanding Heart Rate Variability (HRV) and Mental Stress</h3>
+                <div class="article-body">
+                    <p>Heart Rate Variability (HRV) is the measurement of the variation in time between consecutive heartbeats. Unlike a perfectly metronomic beat, a healthy heart exhibits slight variations. A high HRV indicates a robust, adaptable autonomic nervous system that responds well to exercise and rest.</p>
+                    <p>Conversely, a consistently low HRV is a clinical marker of stress and fatigue. To improve your HRV, incorporate brief deep-breathing exercises (like inhaling for 4 seconds and exhaling for 4 seconds) during work intervals. This activates the vagus nerve, initiating an immediate calming response across the nervous system.</p>
+                </div>
+            </div>
+            
+            <div class="article-card">
+                <span class="article-meta">Dr. Robert Chen • Pediatric Wellness</span>
+                <h3>Nutritional Foundations for Active Children</h3>
+                <div class="article-body">
+                    <p>Growth in early childhood requires balanced macro-nutrient support. Rather than relying on simple carbohydrates or refined sugars that spike insulin and trigger behavioral crashes, focus on introducing complex whole grains, healthy lipids (like avocado and olive oil), and clean proteins.</p>
+                    <p>Ensure hydration is sourced from mineralized water rather than commercial juices, and limit high-sodium snacks to support cardiovascular vascular resilience in later years.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Disease Analysis Tab -->
+        <div class="tab-content-panel" id="analysis">
+            <div class="article-card">
+                <span class="article-meta">Clinical Overview • Vascular Pathology</span>
+                <h3>Hypertension: Mechanics, Prevention, and Treatment</h3>
+                <div class="article-body">
+                    <p>Hypertension, commonly termed high blood pressure, occurs when the force of blood against arterial walls remains elevated. Over time, this pressure causes micro-tears in the vascular lining, encouraging the accumulation of lipid plaques.</p>
+                    <p>Managing hypertension requires a multi-faceted approach. Reducing sodium intake, sustaining weekly cardiovascular exercise (150 minutes of moderate pace), and monitoring systemic stress parameters represent the primary frontline defense prior to medical intervention.</p>
+                </div>
+            </div>
+            
+            <div class="article-card">
+                <span class="article-meta">Endocrinology • Metabolic Wellness</span>
+                <h3>Type-2 Diabetes: Insulin Sensitivity and Diet Relationships</h3>
+                <div class="article-body">
+                    <p>Type-2 Diabetes is characterized by progressive insulin resistance, where cells fail to respond to insulin, leaving glucose in the bloodstream. This metabolic condition is largely influenced by dietary patterns, activity levels, and body mass index.</p>
+                    <p>Clinical studies demonstrate that a diet rich in dietary fibers, pulses, and lean proteins helps slow down glucose absorption, preventing blood sugar surges. Constant activity, such as walking after meals, plays a pivotal role in clearing glucose directly via muscle contractions without requiring heavy insulin spikes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Your Health Clinic. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+
+            // Action Loader
+            const actionLoader = document.getElementById('action-loader');
+            const actionLoaderText = document.getElementById('action-loader-text');
+            const actionLinks = document.querySelectorAll('nav a, footer a');
+            actionLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = link.getAttribute('href');
+                    if (href && href.startsWith('#') || href.startsWith('/#')) {
+                        return;
+                    }
+                    actionLoader.classList.add('active');
+                    actionLoaderText.textContent = "Connecting securely to the clinic hub...";
+                });
+            });
+
+            // Tab Controls functionality
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabPanels = document.querySelectorAll('.tab-content-panel');
+
+            tabButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const targetTab = btn.getAttribute('data-tab');
+                    
+                    // Toggle active button
+                    tabButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Toggle active panel
+                    tabPanels.forEach(panel => {
+                        panel.classList.remove('active');
+                        if (panel.getAttribute('id') === targetTab) {
+                            panel.classList.add('active');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

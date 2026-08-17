@@ -1,0 +1,2172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>Coffee Date? ☕💖</title>
+    
+    <!-- Typography: Fraunces & Cormorant Garamond for editorial headlines, DM Sans for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400;1,9..144,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ═══════════════════════════════════════════════════
+           PAPER HEARTS — NATURAL ROMANCE & CORAL/BUTTER THEME
+           Option-Specific Candlelight & Romantic Visual System
+           ═══════════════════════════════════════════════════ */
+        :root {
+            --cherry: #D92D62;
+            --cherry-light: #F74B7D;
+            --rose-pink: #F8A5C2;
+            --rose-pink-light: #FBD3E1;
+            --blush: #FDE8EE;
+            --cream: #FFF8F0;
+            --butter: #FFF3D6;
+            --coral-accent: #FF6B6B;
+            --butter-glow: #FFEAA7;
+            --terracotta: #A85B48;
+            --espresso: #3A1C22;
+            --espresso-dark: #230E14;
+            --glass-bg: rgba(65, 30, 38, 0.52);
+            --glass-border: rgba(255, 218, 228, 0.28);
+            --text-primary: #ffffff;
+            --text-secondary: #FDE8EE;
+            --text-muted: #F8A5C2;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', system-ui, sans-serif;
+            background: linear-gradient(rgba(45, 20, 28, 0.58), rgba(45, 20, 28, 0.72)),
+                        radial-gradient(circle at 75% 25%, rgba(248, 165, 194, 0.35), transparent 70%),
+                        radial-gradient(circle at 25% 75%, rgba(217, 45, 98, 0.28), transparent 50%),
+                        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%236B3B48'/%3E%3Cstop offset='50%25' stop-color='%238C4E5E'/%3E%3Cstop offset='100%25' stop-color='%232E121B'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23bg)'/%3E%3C/svg%3E") center/cover no-repeat fixed;
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+            padding: 50px 20px 20px 20px;
+        }
+
+        /* ── PAPER TEXTURE OVERLAY ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* ── FLOATING HEARTS & SPARKLES ── */
+        .float-field {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .float-glyph {
+            position: absolute;
+            opacity: 0;
+            animation: floatDrift var(--dur, 12s) var(--delay, 0s) infinite ease-in-out;
+            color: rgba(248, 165, 194, 0.55);
+            font-size: var(--size, 18px);
+        }
+        @keyframes floatDrift {
+            0%   { opacity: 0; transform: translateY(20px) rotate(0deg); }
+            15%  { opacity: var(--peak, 0.55); }
+            85%  { opacity: var(--peak, 0.55); }
+            100% { opacity: 0; transform: translateY(-85vh) rotate(var(--rot, 30deg)); }
+        }
+
+        /* ── TOP HEADER BRAND BAR ── */
+        .top-brand-bar {
+            position: fixed;
+            top: 18px;
+            left: 24px;
+            right: 24px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+        .brand-link {
+            font-family: 'Fraunces', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            font-style: italic;
+            color: #FFF8F0;
+            text-decoration: none;
+            pointer-events: auto;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .brand-link span { color: var(--rose-pink); }
+
+        .top-right-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            pointer-events: auto;
+        }
+        .invitation-pill {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: rgba(255, 255, 255, 0.95);
+            background: rgba(248, 165, 194, 0.22);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(248, 165, 194, 0.4);
+            padding: 7px 16px;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .invitation-pill::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--rose-pink);
+            border-radius: 50%;
+        }
+
+        .sound-btn {
+            background: rgba(248, 165, 194, 0.22);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(248, 165, 194, 0.4);
+            color: #ffffff;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s;
+        }
+        .sound-btn:hover { background: var(--cherry); transform: scale(1.08); }
+
+        /* ═══════════════════════════════════════════════════
+           ANIMATED EYE COMPANION MASCOT
+           ═══════════════════════════════════════════════════ */
+        .eye-companion {
+            position: fixed;
+            top: 70px;
+            right: 28px;
+            z-index: 105;
+            background: rgba(255, 248, 240, 0.95);
+            border: 2px solid var(--rose-pink);
+            border-radius: 100px;
+            padding: 6px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            pointer-events: none;
+        }
+        .eye-companion-face {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            position: relative;
+        }
+        .eye-ball {
+            width: 16px;
+            height: 16px;
+            background: #ffffff;
+            border: 1.5px solid var(--espresso);
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .eye-pupil {
+            width: 7px;
+            height: 7px;
+            background: var(--espresso);
+            border-radius: 50%;
+            position: absolute;
+            transition: transform 0.1s ease-out;
+        }
+        .companion-mouth {
+            width: 8px;
+            height: 4px;
+            border-bottom: 2px solid var(--espresso);
+            border-radius: 0 0 8px 8px;
+            transition: all 0.25s ease;
+        }
+        .eye-companion-badge {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--espresso);
+            white-space: nowrap;
+        }
+
+        /* Companion Mood Expressions */
+        .eye-companion.mood-happy .companion-mouth {
+            height: 6px;
+            border-bottom: 3px solid var(--cherry);
+            border-radius: 0 0 10px 10px;
+        }
+        .eye-companion.mood-sad .companion-mouth {
+            height: 5px;
+            border-bottom: none;
+            border-top: 3px solid var(--cherry);
+            border-radius: 10px 10px 0 0;
+        }
+        .eye-companion.mood-thinking .companion-mouth {
+            width: 6px;
+            height: 6px;
+            background: var(--espresso);
+            border-radius: 50%;
+            border: none;
+        }
+        .eye-companion.mood-typing .companion-mouth {
+            width: 10px;
+            height: 3px;
+            border-bottom: 2px dashed var(--cherry);
+        }
+
+        /* ═══════════════════════════════════════════════════
+           MAIN GLASSMORPHIC STAGE
+           ═══════════════════════════════════════════════════ */
+        .glass-stage {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 580px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1.5px solid var(--glass-border);
+            border-radius: 36px;
+            padding: 42px 36px;
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.42), 0 0 40px rgba(248, 165, 194, 0.18), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .step { display: none; width: 100%; position: relative; }
+        .step.active { display: block; }
+
+        /* ═══ OFFSET FLOATING STICKER CARD ═══ */
+        .offset-sticker-card {
+            position: absolute;
+            top: -14px;
+            left: -22px;
+            z-index: 25;
+            background: var(--butter);
+            border: 1.5px solid #FDE8EE;
+            border-radius: 16px;
+            padding: 8px 14px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 185px;
+            animation: stickerFloat 4.5s ease-in-out infinite alternate;
+        }
+        @keyframes stickerFloat {
+            0% { transform: translateY(0) rotate(-4deg); }
+            100% { transform: translateY(-6px) rotate(2deg); }
+        }
+        .offset-sticker-img { font-size: 1.4rem; line-height: 1; }
+        .offset-sticker-text {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #3D2117;
+            line-height: 1.25;
+            text-align: left;
+        }
+
+        /* ═══ REALISTIC PHOTOGRAPHIC POLAROID DANCING CARD ═══ */
+        .polaroid-wrap {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 22px;
+            z-index: 10;
+        }
+
+        .polaroid-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 12px 12px 18px 12px;
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.32), 0 2px 6px rgba(0, 0, 0, 0.14);
+            width: 185px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+            animation: polaroidDance 6s ease-in-out infinite;
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+        .polaroid-card:hover {
+            transform: translateY(-6px) rotate(1.5deg) scale(1.04) !important;
+            box-shadow: 0 22px 55px rgba(0, 0, 0, 0.4) !important;
+        }
+        @keyframes polaroidDance {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-7px) rotate(1.5deg); }
+        }
+
+        .polaroid-img-box {
+            width: 161px;
+            height: 140px;
+            border-radius: 12px;
+            background: #2E1B15;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+            box-shadow: inset 0 0 20px rgba(217, 45, 98, 0.35);
+        }
+        .polaroid-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 12px;
+            transition: opacity 0.3s ease, transform 0.4s ease;
+        }
+
+        .polaroid-sub-caption {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.92);
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            letter-spacing: 0.02em;
+        }
+
+        /* ═══ NAME INPUT FIELD ═══ */
+        .name-input-wrap {
+            margin-bottom: 18px;
+            width: 100%;
+            max-width: 320px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+        .name-input-label {
+            font-size: 0.76rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--rose-pink-light);
+        }
+        .name-input-field {
+            width: 100%;
+            padding: 10px 18px;
+            border-radius: 100px;
+            border: 1.5px solid rgba(248, 165, 194, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            color: #ffffff;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            text-align: center;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+        .name-input-field::placeholder { color: rgba(255, 255, 255, 0.65); }
+        .name-input-field:focus {
+            border-color: #ffffff;
+            background: rgba(255, 255, 255, 0.28);
+            box-shadow: 0 0 15px rgba(248, 165, 194, 0.4);
+        }
+
+        /* ═══ EDITORIAL HEADLINE ═══ */
+        .editorial-headline {
+            font-family: 'Fraunces', 'Cormorant Garamond', serif;
+            font-weight: 400;
+            font-style: italic;
+            font-size: clamp(2.2rem, 6vw, 3.4rem);
+            line-height: 1.15;
+            color: #ffffff;
+            letter-spacing: -0.03em;
+            text-shadow: 0 3px 15px rgba(0, 0, 0, 0.4);
+            margin-bottom: 20px;
+        }
+
+        /* ═══ BUTTON ARENA & YES SPOTLIGHT ═══ */
+        .btn-arena {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            min-height: 110px;
+            width: 100%;
+            position: relative;
+            margin-bottom: 14px;
+        }
+
+        .btn-wrapper { position: relative; display: inline-block; }
+
+        .yes-halo {
+            position: absolute;
+            inset: -16px;
+            border-radius: 100px;
+            background: radial-gradient(circle, rgba(217,45,98,0.6) 0%, rgba(217,45,98,0) 75%);
+            filter: blur(10px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        .yes-halo.active { opacity: 1; animation: haloPulse 1.6s infinite alternate; }
+        @keyframes haloPulse { 0% { transform: scale(1); opacity: 0.5; } 100% { transform: scale(1.25); opacity: 0.9; } }
+
+        /* YES BUTTON SPOTLIGHT BADGE */
+        .yes-spotlight-badge {
+            position: absolute;
+            top: -42px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            background: var(--butter);
+            color: var(--espresso);
+            border: 1.5px solid var(--cherry);
+            border-radius: 100px;
+            padding: 5px 14px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            white-space: nowrap;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+            pointer-events: none;
+            z-index: 30;
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .yes-spotlight-badge.visible {
+            transform: translateX(-50%) scale(1);
+            animation: bounceSpotlight 1.5s infinite alternate;
+        }
+        @keyframes bounceSpotlight {
+            0% { transform: translateX(-50%) translateY(0) scale(1); }
+            100% { transform: translateX(-50%) translateY(-5px) scale(1.05); }
+        }
+
+        .btn-primary {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            padding: 16px 36px;
+            background: var(--cherry);
+            color: #fff;
+            border: none;
+            border-radius: 100px;
+            cursor: pointer;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 6px 20px rgba(217,45,98,0.38);
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+            letter-spacing: 0.02em;
+        }
+        .btn-primary:hover {
+            background: var(--cherry-light);
+            box-shadow: 0 10px 32px rgba(217,45,98,0.5);
+            transform: translateY(-2px) scale(1.04);
+        }
+        .btn-primary.vibrating {
+            animation: gentleVibrate 0.28s infinite alternate !important;
+        }
+        @keyframes gentleVibrate {
+            0% { transform: scale(1.05) translate(0, 0); }
+            25% { transform: scale(1.05) translate(-2px, 1px); }
+            50% { transform: scale(1.05) translate(2px, -1px); }
+            75% { transform: scale(1.05) translate(-1px, -2px); }
+            100% { transform: scale(1.05) translate(1px, 2px); }
+        }
+
+        /* ═══ FULL VIEWPORT ROAMING NO BUTTON ═══ */
+        #no-btn {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 14px 30px;
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(8px);
+            color: #ffffff;
+            border: 1.5px solid rgba(255, 255, 255, 0.42);
+            border-radius: 100px;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            position: relative;
+            white-space: nowrap;
+            will-change: transform;
+            transition: background 0.25s, border-color 0.25s;
+        }
+        #no-btn:focus-visible {
+            outline: 3px solid var(--butter-glow);
+            background: rgba(217, 45, 98, 0.6);
+        }
+
+        /* ═══ "WHY YOU SHOULD SAY YES" FLIRTY CARD ═══ */
+        .why-yes-trigger-btn {
+            font-family: 'Fraunces', serif;
+            font-size: 0.92rem;
+            font-style: italic;
+            font-weight: 700;
+            color: var(--blush);
+            background: rgba(248, 165, 194, 0.18);
+            border: 1.5px dashed var(--rose-pink);
+            padding: 10px 24px;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.25s;
+            margin-top: 10px;
+            margin-bottom: 12px;
+            backdrop-filter: blur(8px);
+        }
+        .why-yes-trigger-btn:hover {
+            background: var(--cherry);
+            color: #ffffff;
+            border-style: solid;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(217, 45, 98, 0.3);
+        }
+
+        .why-yes-card {
+            display: none;
+            background: #ffffff;
+            color: var(--espresso);
+            border: 2px solid var(--rose-pink);
+            border-radius: 24px;
+            padding: 24px 22px;
+            width: 100%;
+            text-align: left;
+            box-shadow: 0 16px 45px rgba(0,0,0,0.3);
+            margin-top: 12px;
+            position: relative;
+        }
+        .why-yes-card::before {
+            content: '💖';
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.6rem;
+        }
+        .why-yes-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        .why-yes-title {
+            font-family: 'Fraunces', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            font-style: italic;
+            color: var(--cherry);
+        }
+        .shuffle-reasons-btn {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.76rem;
+            font-weight: 600;
+            padding: 5px 12px;
+            background: var(--blush);
+            color: var(--cherry);
+            border: 1px solid var(--rose-pink);
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .shuffle-reasons-btn:hover { background: var(--cherry); color: #fff; }
+
+        .why-yes-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+        .why-yes-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed rgba(217, 45, 98, 0.2);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        .why-yes-list li:last-child { border-bottom: none; }
+        .why-yes-list li span.icon { font-size: 1.1rem; line-height: 1.2; }
+
+        .subtext-dynamic {
+            font-family: 'Fraunces', serif;
+            font-size: 0.95rem;
+            font-style: italic;
+            color: var(--text-secondary);
+            text-align: center;
+            min-height: 26px;
+            margin-bottom: 12px;
+        }
+
+        .btn-thinking {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 600;
+            padding: 10px 22px;
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--text-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+        .btn-thinking:hover { background: rgba(255, 255, 255, 0.3); color: #fff; transform: translateY(-2px); }
+
+        /* ═══ STEP 3: PILL OUTLINE ACTIVITY GRID ═══ */
+        .picker-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+            position: relative;
+        }
+
+        .activity-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .activity-card {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.98rem;
+            font-weight: 600;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(8px);
+            color: #ffffff;
+            border: 1.5px solid rgba(255, 255, 255, 0.38);
+            border-radius: 100px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            white-space: nowrap;
+        }
+        .activity-card:hover {
+            border-color: #ffffff;
+            background: rgba(255, 255, 255, 0.26);
+            transform: translateY(-2px);
+        }
+        .activity-card.selected {
+            background: var(--cherry);
+            color: #ffffff;
+            border-color: var(--cherry);
+            box-shadow: 0 8px 24px rgba(217, 45, 98, 0.4);
+            transform: scale(1.02);
+        }
+
+        .vibe-caption-bar {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.86rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 10px;
+            min-height: 24px;
+            padding: 0 10px;
+            line-height: 1.4;
+        }
+
+        .choose-this-btn {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            padding: 16px 42px;
+            background: var(--butter);
+            color: var(--espresso);
+            border: none;
+            border-radius: 100px;
+            cursor: not-allowed;
+            transition: all 0.3s;
+            opacity: 0.6;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .choose-this-btn.ready {
+            background: var(--butter);
+            color: var(--espresso);
+            cursor: pointer;
+            opacity: 1;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.28);
+        }
+        .choose-this-btn.ready:hover {
+            transform: translateY(-2px) scale(1.02);
+            background: #ffffff;
+        }
+
+        /* ═══ STEP 3.5: PROGRESSIVE QUESTION STEP ═══ */
+        .question-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+            width: 100%;
+        }
+        .question-card {
+            background: rgba(255, 255, 255, 0.14);
+            backdrop-filter: blur(12px);
+            border: 1.5px solid rgba(255, 255, 255, 0.35);
+            border-radius: 24px;
+            padding: 24px 20px;
+            width: 100%;
+            text-align: left;
+            margin-bottom: 12px;
+        }
+        .q-title {
+            font-family: 'Fraunces', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            font-weight: 700;
+            color: var(--butter-glow);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .q-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .q-pill {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .q-pill:hover { background: rgba(255, 255, 255, 0.28); }
+        .q-pill.selected {
+            background: var(--butter);
+            color: var(--espresso);
+            border-color: var(--butter);
+            font-weight: 700;
+        }
+        .q-custom-input {
+            width: 100%;
+            padding: 10px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            background: rgba(0, 0, 0, 0.2);
+            color: #ffffff;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.88rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .q-custom-input:focus { border-color: var(--rose-pink); }
+        .q-custom-input::placeholder { color: rgba(255, 255, 255, 0.5); }
+
+        .question-nav-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            gap: 12px;
+        }
+        .skip-btn {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.75);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            text-decoration: underline;
+            padding: 8px;
+        }
+
+        /* ═══ STEP 4: DATE TICKET RECEIPT ═══ */
+        .ticket-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .date-ticket {
+            background: #ffffff;
+            color: var(--espresso);
+            border: 2px dashed var(--cherry-light);
+            border-radius: 24px;
+            padding: 28px 24px;
+            width: 100%;
+            position: relative;
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
+        }
+        .date-ticket::before, .date-ticket::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--glass-bg);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .date-ticket::before { left: -12px; }
+        .date-ticket::after { right: -12px; }
+
+        .ticket-header {
+            font-family: 'Fraunces', serif;
+            font-weight: 700;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--cherry);
+            text-align: center;
+            padding-bottom: 14px;
+            margin-bottom: 14px;
+            border-bottom: 1.5px dashed rgba(217, 45, 98, 0.25);
+        }
+        .ticket-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 8px 0;
+        }
+        .ticket-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--terracotta);
+        }
+        .ticket-value {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--espresso);
+            text-align: right;
+            max-width: 65%;
+            line-height: 1.45;
+        }
+
+        .rsvp-row {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+        .rsvp-link {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 600;
+            padding: 14px 18px;
+            background: #ffffff;
+            color: var(--espresso);
+            border-radius: 14px;
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.25s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            border: none;
+            cursor: pointer;
+        }
+        .rsvp-link:hover {
+            background: var(--cherry);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* ═══ STEP 5: LOVE NOTE ═══ */
+        .note-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .love-note {
+            background: #FFFCF5;
+            color: var(--espresso);
+            border: 2px solid var(--rose-pink-light);
+            border-radius: 24px;
+            padding: 36px 30px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.25);
+        }
+        .love-note::before {
+            content: '💌';
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+        }
+        .note-heading {
+            font-family: 'Fraunces', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            font-style: italic;
+            color: var(--cherry);
+            margin-bottom: 16px;
+        }
+        .note-body {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: var(--espresso);
+            margin-bottom: 20px;
+        }
+        .note-sig {
+            font-family: 'Fraunces', serif;
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--cherry);
+        }
+
+        /* ═══ THINKING MODAL ═══ */
+        .modal-bg {
+            position: fixed; inset: 0;
+            background: rgba(35, 18, 12, 0.68);
+            backdrop-filter: blur(12px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+        .modal-card {
+            background: #ffffff;
+            color: var(--espresso);
+            border-radius: 24px;
+            padding: 36px 30px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 22px;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+        }
+        .modal-heading {
+            font-family: 'Fraunces', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-style: italic;
+        }
+        .modal-spinner {
+            width: 40px; height: 40px;
+            border: 3px solid #FDE8EE;
+            border-top-color: var(--cherry);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .prog-track { width: 100%; height: 8px; background: var(--blush); border-radius: 4px; overflow: hidden; }
+        .prog-fill { width: 0%; height: 100%; background: linear-gradient(90deg, var(--cherry), var(--rose-pink)); border-radius: 4px; }
+        .prog-text { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--terracotta); min-height: 22px; }
+
+        /* ═══ TOAST NOTIFICATION ═══ */
+        .toast-msg {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--espresso);
+            color: var(--butter);
+            border: 1.5px solid var(--rose-pink);
+            border-radius: 100px;
+            padding: 12px 24px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            z-index: 3000;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .toast-msg.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .burst { position: fixed; pointer-events: none; z-index: 9998; font-size: 1.5rem; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+            .polaroid-card, .offset-sticker-card { animation: none !important; }
+            .float-glyph { display: none !important; }
+            .eye-companion { display: none !important; }
+        }
+
+        @media (max-width: 520px) {
+            .glass-stage { padding: 32px 18px; border-radius: 28px; }
+            .editorial-headline { font-size: 2.1rem; }
+            .activity-grid { grid-template-columns: 1fr; gap: 10px; }
+            .activity-card { font-size: 0.92rem; padding: 14px 18px; }
+            .offset-sticker-card { display: none; }
+            .polaroid-card { width: 155px; }
+            .polaroid-img-box { width: 131px; height: 115px; }
+            .top-brand-bar { left: 14px; right: 14px; top: 14px; }
+            .invitation-pill { display: none; }
+            .eye-companion { top: 60px; right: 14px; padding: 4px 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═════ FLOATING HEARTS & SPARKLES ═════ -->
+<div class="float-field" id="float-field"></div>
+
+<!-- ═════ ANIMATED EYE COMPANION MASCOT ═════ -->
+<div class="eye-companion mood-watching" id="eye-companion">
+    <div class="eye-companion-face">
+        <div class="eye-ball"><div class="eye-pupil" id="pupil-left"></div></div>
+        <div class="eye-ball"><div class="eye-pupil" id="pupil-right"></div></div>
+        <div class="companion-mouth" id="companion-mouth"></div>
+    </div>
+    <div class="eye-companion-badge" id="companion-badge">Watching...</div>
+</div>
+
+<!-- ═════ TOP BRAND HEADER BAR ═════ -->
+<div class="top-brand-bar">
+    <a href="#" class="brand-link">
+        <span>♥</span> coffee date?
+    </a>
+    <div class="top-right-group">
+        <div class="invitation-pill">A LITTLE INVITATION</div>
+        <button class="sound-btn" id="sound-btn" title="Toggle Sound">🔊</button>
+    </div>
+</div>
+
+<!-- ═════ MAIN GLASSMORPHIC STAGE ═════ -->
+<div class="glass-stage">
+
+    <!-- ── STEP 1: PROPOSAL ── -->
+    <div class="step active" id="step-1">
+        <!-- Offset Floating Sticker Card -->
+        <div class="offset-sticker-card">
+            <span class="offset-sticker-img">✨</span>
+            <span class="offset-sticker-text">we can pretend this was planned</span>
+        </div>
+
+        <div class="proposal-layout">
+            <div class="polaroid-wrap">
+                <!-- Top Polaroid Dancing Card -->
+                <div class="polaroid-card">
+                    <div class="polaroid-img-box" id="p-box-1">
+                        <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=400&q=80" alt="Couple Hands Coffee" id="p-img-1" />
+                    </div>
+                </div>
+
+                <div class="polaroid-sub-caption">
+                    <span>✨</span> <span>a soft café moment, waiting to happen</span>
+                </div>
+            </div>
+
+            <!-- Personalized Name Input -->
+            <div class="name-input-wrap">
+                <span class="name-input-label">Who is this invitation for?</span>
+                <input type="text" id="user-name-input" class="name-input-field" placeholder="Enter your name (e.g. Alex) ♡" maxlength="30" />
+            </div>
+
+            <h1 class="editorial-headline">Would you like to go<br>on a coffee date with me?</h1>
+
+            <div class="btn-arena" id="btn-arena">
+                <div class="btn-wrapper">
+                    <div class="yes-halo" id="yes-halo"></div>
+                    <div class="yes-spotlight-badge" id="yes-spotlight">👈 Click YES! I won't run away! 💕</div>
+                    <button class="btn-primary" id="yes-btn">Yes, I'd love to ♡</button>
+                </div>
+                <button id="no-btn">No</button>
+            </div>
+
+            <p class="subtext-dynamic" id="subtext">Choose wisely… 😊</p>
+
+            <!-- "Why You Should Say Yes" Trigger Button -->
+            <button class="why-yes-trigger-btn" id="why-yes-btn">💡 5 Irresistible Reasons to Say Yes ✨</button>
+
+            <!-- Dynamic Randomized Flirty Card Modal -->
+            <div class="why-yes-card" id="why-yes-card">
+                <div class="why-yes-header-row">
+                    <div class="why-yes-title">Five Irresistible Reasons:</div>
+                    <button class="shuffle-reasons-btn" id="shuffle-reasons-btn">🎲 Shuffle</button>
+                </div>
+                <ul class="why-yes-list" id="why-yes-list">
+                    <!-- Populated dynamically via JS -->
+                </ul>
+            </div>
+
+            <button class="btn-thinking" id="thinking-btn" style="margin-top: 10px;">🤔 I'm thinking…</button>
+        </div>
+    </div>
+
+    <!-- ── STEP 2: YAY CELEBRATION ── -->
+    <div class="step" id="step-2">
+        <div class="celebration-layout">
+            <div class="polaroid-wrap">
+                <div class="polaroid-card">
+                    <div class="polaroid-img-box" id="p-box-2">
+                        <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=400&q=80" alt="Yay Celebration" id="p-img-2" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="editorial-headline" style="font-size: 3.8rem; color: var(--rose-pink-light);">Yay!</div>
+            <p class="subline" style="font-size: 1.15rem; color: #fff; margin-bottom: 24px;">I'm so glad you said yes, <span class="display-user-name">my favorite person</span>! (Doing a tiny victory dance right now! 💃✨)</p>
+            <button class="choose-this-btn ready" id="to-step-3">Let's plan our date →</button>
+        </div>
+    </div>
+
+    <!-- ── STEP 3: ACTIVITY PICKER ── -->
+    <div class="step" id="step-3">
+        <!-- Offset Floating Sticker Card -->
+        <div class="offset-sticker-card">
+            <span class="offset-sticker-img">✨</span>
+            <span class="offset-sticker-text">we can pretend this was planned</span>
+        </div>
+
+        <div class="picker-layout">
+            <div class="polaroid-wrap">
+                <!-- Top Polaroid Dancing Card -->
+                <div class="polaroid-card">
+                    <div class="polaroid-img-box" id="p-box-3">
+                        <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=400&q=80" alt="Coffee Date Vibe" id="p-img-3" />
+                    </div>
+                </div>
+
+                <div class="polaroid-sub-caption" id="p-sub-3">
+                    <span>✨</span> <span>a soft café moment, waiting to happen</span>
+                </div>
+            </div>
+
+            <h2 class="editorial-headline">What would you<br>like to do?</h2>
+
+            <!-- 6 Pill Outline Activity Buttons Grid -->
+            <div class="activity-grid">
+                <div class="activity-card act-opt" data-v="Dinner date">Dinner date</div>
+                <div class="activity-card act-opt" data-v="Movie night">Movie night</div>
+                <div class="activity-card act-opt" data-v="Coffee & walk">Coffee & walk</div>
+                <div class="activity-card act-opt" data-v="Picnic">Picnic</div>
+                <div class="activity-card act-opt" data-v="Mini golf">Mini golf</div>
+                <div class="activity-card act-opt" data-v="Surprise me">Surprise me</div>
+            </div>
+
+            <div class="vibe-caption-bar">
+                <span>✨</span> <span id="vibe-sub-text">choose a vibe — I'll pick a tiny note and pretend we planned this all along</span>
+            </div>
+
+            <button class="choose-this-btn" id="lock-btn">Next: Personalize details →</button>
+            <a href="#" id="go-back-btn" style="color: rgba(255,255,255,0.7); font-size: 0.88rem; text-decoration: none; margin-top: 6px;">← go back</a>
+        </div>
+    </div>
+
+    <!-- ── STEP 3.5: PROGRESSIVE FOLLOW-UP QUESTIONS ── -->
+    <div class="step" id="step-3-5">
+        <div class="question-layout">
+            <h2 class="editorial-headline" style="font-size: 2.2rem;">Personalize Our Date 💭</h2>
+            <p style="font-size: 0.95rem; color: var(--rose-pink-light); margin-bottom: 8px;">A few fun questions for <span class="display-user-name">you</span>:</p>
+
+            <div id="questions-container" style="width: 100%;">
+                <!-- Dynamic follow-up question cards populated via JS -->
+            </div>
+
+            <div class="question-nav-row">
+                <button class="skip-btn" id="skip-questions-btn">Skip for now →</button>
+                <button class="choose-this-btn ready" id="to-step-4">Confirm Date Plan ♥</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── STEP 4: DATE TICKET RECEIPT ── -->
+    <div class="step" id="step-4">
+        <div class="ticket-layout">
+            <div class="polaroid-wrap">
+                <div class="polaroid-card">
+                    <div class="polaroid-img-box" id="p-box-4">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=400&q=80" alt="Date Ticket Vibe" id="p-img-4" />
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="editorial-headline">It's a date! 🎉</h2>
+
+            <div class="date-ticket">
+                <div class="ticket-header">☕ Romantic Date Confirmation ☕</div>
+                <div class="ticket-row">
+                    <span class="ticket-label">Dedicated To</span>
+                    <span class="ticket-value display-user-name">Special Person</span>
+                </div>
+                <div class="ticket-row">
+                    <span class="ticket-label">Activities</span>
+                    <span class="ticket-value" id="t-acts">—</span>
+                </div>
+                <div class="ticket-row">
+                    <span class="ticket-label">Preferences</span>
+                    <span class="ticket-value" id="t-prefs">Customized to perfection ✨</span>
+                </div>
+                <div class="ticket-row">
+                    <span class="ticket-label">Vibe Highlight</span>
+                    <span class="ticket-value" id="t-vibe">Butterflies guaranteed 🦋</span>
+                </div>
+                <div class="ticket-row">
+                    <span class="ticket-label">Status</span>
+                    <span class="ticket-value" style="color: var(--cherry);">Confirmed ✓</span>
+                </div>
+            </div>
+
+            <div class="rsvp-row">
+                <a href="#" target="_blank" class="rsvp-link" id="wa-link">
+                    <span style="font-size:1.3rem;">💬</span> Send WhatsApp Confirmation
+                </a>
+                <a href="#" class="rsvp-link" id="email-link">
+                    <span style="font-size:1.2rem;">✉️</span> Send Email RSVP
+                </a>
+                <button class="rsvp-link" id="copy-summary-btn">
+                    <span style="font-size:1.2rem;">📋</span> Copy Summary to Clipboard
+                </button>
+            </div>
+
+            <button class="choose-this-btn ready" id="to-step-5" style="margin-top: 8px;">Read my note for you 💌</button>
+        </div>
+    </div>
+
+    <!-- ── STEP 5: LOVE NOTE ── -->
+    <div class="step" id="step-5">
+        <div class="note-layout">
+            <div class="polaroid-wrap">
+                <div class="polaroid-card">
+                    <div class="polaroid-img-box" id="p-box-5">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=400&q=80" alt="Love Note Vibe" id="p-img-5" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="love-note">
+                <div class="note-heading">Dearest <span class="display-user-name">One</span>,</div>
+                <div class="note-body" id="note-body">Loading your note…</div>
+                <div class="note-sig">— With all my love ♡</div>
+            </div>
+            <button class="choose-this-btn ready" onclick="window.location.href='#'" style="margin-top: 10px;">Replay Invitation 💖</button>
+        </div>
+    </div>
+
+</div>
+
+<!-- ═════ THINKING MODAL ═════ -->
+<div class="modal-bg" id="think-modal">
+    <div class="modal-card">
+        <div class="modal-heading">Hmm, let me think about this…</div>
+        <div class="modal-spinner"></div>
+        <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
+        <div class="prog-text" id="prog-text">Warming up the brain…</div>
+    </div>
+</div>
+
+<!-- ═════ TOAST NOTIFICATION ═════ -->
+<div class="toast-msg" id="toast-msg">Copied date summary to clipboard! 📋✨</div>
+
+<!-- ═════ SCRIPTS ═════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+/* ══════════════════════════════════════════════════════
+   PAPER HEARTS — OPTION-SPECIFIC CANDLELIGHT & ROMANTIC IMAGERY
+   ══════════════════════════════════════════════════════ */
+
+// ── ULTRA-ROMANTIC HIGH-DEFINITION PHOTO POOL ──
+const photoPool = [
+    "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1526401485004-46910ecc8e51?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=400&q=80"
+];
+
+let lastPhotoUrl = "";
+function getRandomPhoto() {
+    let available = photoPool.filter(p => p !== lastPhotoUrl);
+    let chosen = available[Math.floor(Math.random() * available.length)];
+    lastPhotoUrl = chosen;
+    return chosen;
+}
+
+// ── FLOATING PINK HEARTS FIELD ──
+(function() {
+    const f = document.getElementById('float-field');
+    const glyphs = ['♡','♥','✦','✧','❤','💕','🌸','♡'];
+    for (let i = 0; i < 28; i++) {
+        const el = document.createElement('div');
+        el.className = 'float-glyph';
+        el.textContent = glyphs[i % glyphs.length];
+        el.style.left = Math.random() * 100 + '%';
+        el.style.bottom = -(Math.random() * 20) + '%';
+        el.style.setProperty('--dur', (11 + Math.random() * 13).toFixed(1) + 's');
+        el.style.setProperty('--delay', (Math.random() * 12).toFixed(1) + 's');
+        el.style.setProperty('--peak', (0.2 + Math.random() * 0.35).toFixed(2));
+        el.style.setProperty('--rot', (Math.random() * 60 - 30).toFixed(0) + 'deg');
+        el.style.setProperty('--size', (14 + Math.random() * 14).toFixed(0) + 'px');
+        f.appendChild(el);
+    }
+})();
+
+// ── AUDIO SYNTHESIZER ──
+const SFX = {
+    ctx: null, muted: false,
+    init() {
+        if (!this.ctx) this.ctx = new (window.AudioContext||window.webkitAudioContext)();
+        if (this.ctx.state==='suspended') this.ctx.resume();
+    },
+    tone(freq, dur, type='sine', vol=0.06) {
+        if (this.muted) return; this.init(); if (!this.ctx) return;
+        const o=this.ctx.createOscillator(), g=this.ctx.createGain();
+        o.connect(g); g.connect(this.ctx.destination);
+        o.type=type; o.frequency.setValueAtTime(freq,this.ctx.currentTime);
+        g.gain.setValueAtTime(vol,this.ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001,this.ctx.currentTime+dur);
+        o.start(); o.stop(this.ctx.currentTime+dur);
+    },
+    flee()  { this.tone(380,0.1); setTimeout(()=>this.tone(240,0.08),40); },
+    click() { this.tone(520,0.05,'triangle',0.07); },
+    chime() { [523,659,784,1047].forEach((f,i)=>setTimeout(()=>this.tone(f,0.3,'triangle',0.09),i*65)); },
+    lock()  { [440,554,659].forEach((f,i)=>setTimeout(()=>this.tone(f,0.18,'sine',0.07),i*45)); }
+};
+
+document.getElementById('sound-btn').addEventListener('click', function() {
+    SFX.muted = !SFX.muted;
+    this.textContent = SFX.muted ? '🔇' : '🔊';
+    if (!SFX.muted) SFX.click();
+});
+
+// ── ANIMATED EYE COMPANION MASCOT LOGIC ──
+const eyeCompanion = document.getElementById('eye-companion');
+const pupilLeft = document.getElementById('pupil-left');
+const pupilRight = document.getElementById('pupil-right');
+const companionBadge = document.getElementById('companion-badge');
+
+function setCompanionMood(mood, text) {
+    if (!eyeCompanion) return;
+    eyeCompanion.className = `eye-companion mood-${mood}`;
+    if (text) companionBadge.textContent = text;
+}
+
+function updateEyeDirection(targetX, targetY) {
+    if (!pupilLeft || !pupilRight) return;
+    const rect = eyeCompanion.getBoundingClientRect();
+    const eyeCenterX = rect.left + rect.width / 2;
+    const eyeCenterY = rect.top + rect.height / 2;
+
+    const angle = Math.atan2(targetY - eyeCenterY, targetX - eyeCenterX);
+    const dist = Math.min(5, Math.hypot(targetX - eyeCenterX, targetY - eyeCenterY) / 20);
+
+    const pupilX = Math.cos(angle) * dist;
+    const pupilY = Math.sin(angle) * dist;
+
+    pupilLeft.style.transform = `translate(${pupilX}px, ${pupilY}px)`;
+    pupilRight.style.transform = `translate(${pupilX}px, ${pupilY}px)`;
+}
+
+document.addEventListener('mousemove', e => {
+    // If No button is currently fleeing, track No button, else track pointer
+    const noBtn = document.getElementById('no-btn');
+    if (noBtn && noBtn.classList.contains('is-fleeing')) {
+        const nr = noBtn.getBoundingClientRect();
+        updateEyeDirection(nr.left + nr.width / 2, nr.top + nr.height / 2);
+    } else {
+        updateEyeDirection(e.clientX, e.clientY);
+    }
+});
+
+// ── USER NAME MANAGEMENT ──
+let userName = "My Favorite Person";
+const nameInput = document.getElementById('user-name-input');
+if (nameInput) {
+    nameInput.addEventListener('focus', () => setCompanionMood('typing', 'Typing name...'));
+    nameInput.addEventListener('blur', () => setCompanionMood('watching', 'Watching...'));
+    nameInput.addEventListener('input', (e) => {
+        userName = e.target.value.trim() || "My Favorite Person";
+        document.querySelectorAll('.display-user-name').forEach(el => el.textContent = userName);
+        setCompanionMood('happy', `Hi ${userName}! 💕`);
+    });
+}
+
+// ── STEP MANAGEMENT ──
+function goStep(from, to) {
+    const a = document.getElementById(from), b = document.getElementById(to);
+    gsap.to(a, { opacity:0, y:-20, duration:0.35, ease:'power2.in', onComplete() {
+        a.classList.remove('active');
+        b.classList.add('active');
+        
+        const pBox = b.querySelector('.polaroid-img-box');
+        if (pBox && to !== 'step-4' && to !== 'step-5') {
+            const freshPhoto = getRandomPhoto();
+            pBox.innerHTML = `<img src="${freshPhoto}" alt="Romantic Date Vibe" />`;
+        }
+
+        gsap.fromTo(b, {opacity:0, y:30}, {opacity:1, y:0, duration:0.5, ease:'power2.out'});
+    }});
+}
+
+function burst(emoji, x, y) {
+    const el = document.createElement('div');
+    el.className='burst'; el.textContent=emoji;
+    el.style.left=x+'px'; el.style.top=y+'px';
+    document.body.appendChild(el);
+    gsap.to(el, { y:-90-Math.random()*60, x:(Math.random()-0.5)*100, rotation:(Math.random()-0.5)*120, opacity:0, scale:2, duration:1, ease:'power2.out', onComplete:()=>el.remove() });
+}
+
+function showToast(msg) {
+    const t = document.getElementById('toast-msg');
+    if (!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ══════════════════════════════════════
+// STEP 1: PROPOSAL & FULL VIEWPORT NO EVASION ENGINE
+// ══════════════════════════════════════
+const yesBtn = document.getElementById('yes-btn');
+const yesHalo = document.getElementById('yes-halo');
+const yesSpotlight = document.getElementById('yes-spotlight');
+const noBtn = document.getElementById('no-btn');
+const subtext = document.getElementById('subtext');
+const whyYesBtn = document.getElementById('why-yes-btn');
+const whyYesCard = document.getElementById('why-yes-card');
+const whyYesList = document.getElementById('why-yes-list');
+const shuffleReasonsBtn = document.getElementById('shuffle-reasons-btn');
+
+let noClicks = 0;
+let isEvading = false;
+
+const allReasonsPool = [
+    { icon: "💖", text: "Your smile is literally my favorite view in the world, and I plan to keep you smiling all date long." },
+    { icon: "☕", text: "I will memorize your exact coffee order so you never have to repeat it again." },
+    { icon: "🍰", text: "100% guarantee that I'll let you have the last bite of whatever dessert we order." },
+    { icon: "🦋", text: "Butterflies are rare in this world — let's give them a chance to fly today." },
+    { icon: "💅", text: "You look way too stunning today to spend it without a warm cappuccino in hand." },
+    { icon: "🌸", text: "100% genuine laughter, warm sunshine, and 0% awkward silences guaranteed." },
+    { icon: "🤫", text: "I've been holding onto a very cute compliment that I can only tell you in person." },
+    { icon: "👀", text: "Stealing glances at you across a café table is honestly my favorite hobby." },
+    { icon: "✨", text: "We can pretend this was completely spontaneous and planned months in advance." },
+    { icon: "🏆", text: "I am an expert at holding coffee cups, opening doors, and listening to your stories." },
+    { icon: "🍓", text: "Life is short and coffee is warm — saying Yes leads to the sweetest memories." },
+    { icon: "🕯️", text: "If we stay past sunset, I will request the table with the warmest candlelight." },
+    { icon: "🍿", text: "If we end up at a movie, I will let you have the buttered popcorn without counting." },
+    { icon: "🚶‍♂️", text: "I'll take the longest scenic park walk just to keep walking beside you." },
+    { icon: "🥐", text: "I will happily buy extra warm croissants just to see that happy look on your face." },
+    { icon: "🎨", text: "We will take the cutest photo together that will definitely belong on a polaroid frame." }
+];
+
+function getRandomReasons() {
+    const shuffled = [...allReasonsPool].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, 5);
+}
+
+function renderRandomReasons() {
+    const items = getRandomReasons();
+    whyYesList.innerHTML = items.map((r, i) => `
+        <li>
+            <span class="icon">${r.icon}</span>
+            <span><strong>Reason #${i+1}:</strong> ${r.text}</span>
+        </li>
+    `).join('');
+    gsap.fromTo('#why-yes-list li', { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.3, stagger: 0.06 });
+}
+
+whyYesBtn.addEventListener('click', () => {
+    SFX.click();
+    if (whyYesCard.style.display === 'block') {
+        gsap.to(whyYesCard, { opacity: 0, y: -10, duration: 0.25, onComplete() { whyYesCard.style.display = 'none'; } });
+    } else {
+        renderRandomReasons();
+        whyYesCard.style.display = 'block';
+        gsap.fromTo(whyYesCard, { opacity: 0, y: 15, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: 'back.out(1.4)' });
+    }
+});
+
+shuffleReasonsBtn.addEventListener('click', () => {
+    SFX.click();
+    renderRandomReasons();
+});
+
+const subs = [
+    "Choose wisely… 😊",
+    "Are you sure about that? 🥺",
+    "Really? Think again… 😢",
+    "Babe please… don't do this 😭",
+    "My heart is actually breaking 💔",
+    "I'll wait forever if I have to… 🥹",
+    "Error 404: 'No' not found! 😉",
+    "The No button is tired of dodging! Pick YES! 😤"
+];
+
+const yesTxt = [
+    "Yes, I'd love to ♡",
+    "Yes! Absolutely! 😍",
+    "Yes, let's do it! 🌸",
+    "YES! A thousand times! 💖",
+    "YES! You won't regret this! ✨",
+    "YES YES YES! 💘"
+];
+
+// FULL VIEWPORT ROAMING NO-BUTTON ENGINE WITH KEYBOARD ACCESSIBILITY
+function gentleNoHop(e) {
+    if (isEvading) return;
+    // If keyboard focused, don't jump away to allow deliberate accessibility click
+    if (document.activeElement === noBtn && e && e.type === 'keydown') return;
+
+    isEvading = true;
+    noClicks++;
+    SFX.flee();
+
+    setCompanionMood('sad', 'No button escaped! 🥺');
+    subtext.textContent = subs[Math.min(noClicks, subs.length - 1)];
+    yesHalo.classList.add('active');
+    yesSpotlight.classList.add('visible');
+
+    const sc = Math.min(1.22, 1 + noClicks * 0.04);
+    yesBtn.textContent = yesTxt[Math.min(noClicks, yesTxt.length - 1)];
+    gsap.to(yesBtn, { scale: sc, duration: 0.3 });
+    if (noClicks >= 2) yesBtn.classList.add('vibrating');
+
+    // Switch noBtn to fixed positioning so it roams across entire screen
+    noBtn.style.position = 'fixed';
+    noBtn.style.zIndex = '9999';
+    noBtn.classList.add('is-fleeing');
+
+    const margin = 50;
+    const btnW = noBtn.offsetWidth || 100;
+    const btnH = noBtn.offsetHeight || 44;
+
+    const newX = margin + Math.random() * (window.innerWidth - btnW - margin * 2);
+    const newY = margin + Math.random() * (window.innerHeight - btnH - margin * 2);
+
+    const px = e ? (e.clientX || window.innerWidth / 2) : window.innerWidth / 2;
+    const py = e ? (e.clientY || window.innerHeight / 2) : window.innerHeight / 2;
+
+    updateEyeDirection(newX, newY);
+
+    gsap.to(noBtn, {
+        left: newX,
+        top: newY,
+        x: 0,
+        y: 0,
+        duration: 0.45,
+        ease: 'power3.out',
+        overwrite: 'auto',
+        onComplete() {
+            isEvading = false;
+        }
+    });
+
+    burst('💔', px, py);
+}
+
+// Proximity sensitivity threshold: 120px radius
+document.addEventListener('mousemove', e => {
+    if (!document.getElementById('step-1').classList.contains('active')) return;
+    const rect = noBtn.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dist = Math.sqrt((e.clientX - cx)**2 + (e.clientY - cy)**2);
+    if (dist < 120) { gentleNoHop(e); }
+});
+
+noBtn.addEventListener('click', e => { e.preventDefault(); gentleNoHop(e); });
+noBtn.addEventListener('touchend', e => { e.preventDefault(); gentleNoHop(e.changedTouches ? e.changedTouches[0] : e); });
+noBtn.addEventListener('mouseenter', e => { gentleNoHop(e); });
+
+yesBtn.addEventListener('click', () => {
+    SFX.chime();
+    setCompanionMood('happy', 'YES YES! 🎉');
+    noBtn.style.display = 'none';
+    confetti({ particleCount:90, spread:90, origin:{y:0.5}, colors:['#D92D62','#fff','#F8A5C2','#FFF3D6'] });
+    goStep('step-1','step-2');
+    let ci = setInterval(()=>{
+        if (document.getElementById('step-2').classList.contains('active'))
+            confetti({particleCount:3,spread:360,startVelocity:18,origin:{x:Math.random(),y:Math.random()-0.1},colors:['#D92D62','#F8A5C2']});
+        else clearInterval(ci);
+    }, 700);
+});
+
+yesBtn.addEventListener('mouseenter', () => setCompanionMood('happy', 'Saying yes? 😍'));
+yesBtn.addEventListener('mouseleave', () => setCompanionMood('watching', 'Watching...'));
+
+// Thinking modal
+document.getElementById('thinking-btn').addEventListener('click', () => {
+    SFX.click();
+    setCompanionMood('thinking', 'Analyzing compatibility...');
+    const modal = document.getElementById('think-modal');
+    const fill = document.getElementById('prog-fill');
+    const txt = document.getElementById('prog-text');
+    modal.style.display = 'flex';
+    fill.style.width = '0%';
+
+    const steps = [
+        {p:20, t:"Scanning your vibe compatibility…"},
+        {p:45, t:"Cross-referencing coffee preferences…"},
+        {p:70, t:"Consulting the butterflies in my stomach…"},
+        {p:90, t:"Aligning the stars and moon…"},
+        {p:100, t:"Verdict: 100% match! Choose Yes! 💖"}
+    ];
+
+    const tl = gsap.timeline({ onComplete() {
+        setTimeout(()=>{
+            gsap.to(modal, {opacity:0, duration:0.3, onComplete() {
+                modal.style.display='none'; modal.style.opacity='1';
+                setCompanionMood('happy', '100% Match! 💕');
+                gsap.fromTo(yesBtn, {rotation:-6},{rotation:6,duration:0.1,repeat:5,yoyo:true});
+            }});
+        }, 1800);
+    }});
+    steps.forEach((s,i) => tl.to(fill, { width:s.p+'%', duration:0.6+i*0.08, ease:'power1.inOut', onStart() { txt.textContent=s.t; } }));
+});
+
+// ══════════════════════════════════════
+// STEP 2 → 3
+// ══════════════════════════════════════
+document.getElementById('to-step-3').addEventListener('click', () => { SFX.click(); goStep('step-2','step-3'); });
+document.getElementById('go-back-btn').addEventListener('click', (e) => { e.preventDefault(); SFX.click(); goStep('step-3','step-1'); });
+
+// ══════════════════════════════════════
+// STEP 3: OPTION SELECTION & DEDICATED PHOTOGRAPHIC MAPPING
+// ══════════════════════════════════════
+const actCards = document.querySelectorAll('.act-opt');
+const lockBtn = document.getElementById('lock-btn');
+const pBox3 = document.getElementById('p-box-3');
+const pSub3 = document.getElementById('p-sub-3');
+const vibeSubText = document.getElementById('vibe-sub-text');
+let picks = [];
+let lastCaptionIndex = {};
+
+// Explicit Option-to-Image Map
+const optionScenes = {
+    "Dinner date": {
+        img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=400&q=80",
+        cap: "a warm candlelight bistro, waiting for us"
+    },
+    "Movie night": {
+        img: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=400&q=80",
+        cap: "cozy theater seats & stolen glances"
+    },
+    "Coffee & walk": {
+        img: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=400&q=80",
+        cap: "golden hour walk with fresh cappuccino"
+    },
+    "Picnic": {
+        img: "https://images.unsplash.com/photo-1526401485004-46910ecc8e51?auto=format&fit=crop&w=400&q=80",
+        cap: "checkered blanket & sweet strawberries"
+    },
+    "Mini golf": {
+        img: "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=400&q=80",
+        cap: "playful competition & ice cream rewards"
+    },
+    "Surprise me": {
+        img: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=400&q=80",
+        cap: "a secret adventure full of magic"
+    }
+};
+
+const captionPools = {
+    "Dinner date": [
+        "I promise not to steal your fries... unless they look really good. 😋🍷",
+        "Candlelight, warm pasta, and endless smiles with you 🍝✨",
+        "Checking out the menu, but staring at you instead 🍝👀",
+        "A cozy corner table reserved for two hearts in sync 🍷🕯️",
+        "Forks clinking, laughter overflowing, perfect company 🥖💖",
+        "Saved room for dessert, but mostly saved time for you 🍨🍰"
+    ],
+    "Movie night": [
+        "We can watch whatever you want, as long as I get to sit ridiculously close to you. 🍿🎬",
+        "Cozy popcorn buckets and stolen glances in the dark 🎬🍿",
+        "I'll pretend to watch the plot, but I'm watching your smile 🎥✨",
+        "One huge popcorn bucket, two hands reaching for the middle 🍿💘",
+        "Dimmed lights, warm shoulders, and cozy movie magic 🎞️💫",
+        "Post-movie walk discussing every plot twist with you 🎬💬"
+    ],
+    "Coffee & walk": [
+        "You + me + warm coffee = 100% chance of butterfly overloads. ☕💖",
+        "Golden hour walk with fresh cappuccino in hand ☕🌿",
+        "Crunching fallen leaves and sharing warm coffee secrets 🍂☕",
+        "Sipping lattes while walking slowly down cobblestone streets 🏛️☕",
+        "Steaming coffee cup in one hand, your hand in the other ☕🤝",
+        "Finding the cutest bench in the park just to talk for hours 🌳✨"
+    ],
+    "Picnic": [
+        "I'll pack the sandwiches and strawberries, you bring that gorgeous smile. 🧺🍓",
+        "Checkered blanket, sunbeams, and fresh berry sweetness 🧺☀️",
+        "Lying on the grass watching cloud shapes with you ☁️🌸",
+        "Crisp lemonade, sourdough bites, and soft romantic breezes 🍋🧺",
+        "A quiet park corner with fresh fruit and warm laughter 🧺🍓",
+        "Packing sweet treats and my favorite person in the world 🍓💖"
+    ],
+    "Mini golf": [
+        "I'm terrible at golf, but expert level at making you laugh. ⛳🍦",
+        "Playful rivalry, high-fives, and winner buys ice cream ⛳🍨",
+        "Celebrating every hole-in-one with a victory hug ⛳🏆",
+        "Cheering for your best shots and laughing at my worst ⛳🤣",
+        "Neon golf obstacle courses and sweet ice cream cones 🍦⛳",
+        "Taking terrible swings just to see you giggle ⛳✨"
+    ],
+    "Surprise me": [
+        "Mystery date itinerary packed with secret romantic magic 🎁✨",
+        "Pack your smile — the destination is a romantic secret 🗺️💖",
+        "A spontaneous adventure designed purely to make you smile 🌟🚗",
+        "Curated with love, wrapped in secret, waiting for you 🎁💫",
+        "No spoilers allowed, but butterflies are 100% guaranteed 🦋✨",
+        "Trust me on this one — it's going to be unforgettable 🌹 magical"
+    ]
+};
+
+function getFreshCaption(act) {
+    const pool = captionPools[act] || ["a soft romantic moment waiting for us"];
+    let prevIdx = lastCaptionIndex[act] !== undefined ? lastCaptionIndex[act] : -1;
+    let nextIdx;
+    if (pool.length === 1) nextIdx = 0;
+    else {
+        do { nextIdx = Math.floor(Math.random() * pool.length); } while (nextIdx === prevIdx);
+    }
+    lastCaptionIndex[act] = nextIdx;
+    return pool[nextIdx];
+}
+
+function updatePolaroidScene() {
+    if (picks.length > 0) {
+        const activeAct = picks[picks.length - 1];
+        const scene = optionScenes[activeAct] || optionScenes["Coffee & walk"];
+        const chosenCap = getFreshCaption(activeAct);
+
+        // Smooth GSAP crossfade AND gentle slide transition for card imagery
+        gsap.to(pBox3, {
+            opacity: 0,
+            x: -20,
+            duration: 0.18,
+            onComplete() {
+                pBox3.innerHTML = `<img src="${scene.img}" alt="${activeAct}" />`;
+                pSub3.innerHTML = `<span>✨</span> <span>${scene.cap}</span>`;
+                vibeSubText.textContent = chosenCap;
+                gsap.fromTo(pBox3, { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.3, ease: 'power2.out' });
+            }
+        });
+    } else {
+        const initialPhoto = getRandomPhoto();
+        pBox3.innerHTML = `<img src="${initialPhoto}" alt="Coffee Date Vibe" />`;
+        pSub3.innerHTML = `<span>✨</span> <span>a soft café moment, waiting to happen</span>`;
+        vibeSubText.textContent = "choose a vibe — I'll pick a tiny note and pretend we planned this all along";
+    }
+}
+
+actCards.forEach(c => c.addEventListener('click', () => {
+    SFX.click();
+    c.classList.toggle('selected');
+    const v = c.dataset.v;
+    if (c.classList.contains('selected')) picks.push(v);
+    else picks = picks.filter(x=>x!==v);
+    
+    updatePolaroidScene();
+    lockBtn.classList.toggle('ready', picks.length > 0);
+    setCompanionMood('happy', `Ooh, ${picks.join(', ')}! ✨`);
+}));
+
+// ══════════════════════════════════════
+// STEP 3.5: PROGRESSIVE FOLLOW-UP QUESTION POOLS
+// ══════════════════════════════════════
+const questionPools = {
+    "Dinner date": [
+        {
+            id: "cuisine",
+            q: "What cuisine makes your heart skip a beat?",
+            options: ["Italian & Pasta 🍝", "Sushi & Japanese 🍣", "Tacos & Mexican 🌮", "Dessert First 🍨", "Surprise my tastebuds 🍽️"]
+        },
+        {
+            id: "vibe",
+            q: "What dining vibe are we aiming for?",
+            options: ["Cozy candlelight bistro 🕯️", "Rooftop skyline view 🌃", "Hidden local foodie gem 🍷"]
+        }
+    ],
+    "Movie night": [
+        {
+            id: "snack",
+            q: "What's our essential movie snack strategy?",
+            options: ["Extra butter popcorn 🍿", "Sweet & salty mix 🍿🍬", "Nachos & warm cheese 🧀", "Chocolate hoard 🍫"]
+        },
+        {
+            id: "genre",
+            q: "Which movie genre vibe calls to you?",
+            options: ["Rom-com giggles 💘", "Heart-pounding thriller 😱", "Mind-bending sci-fi 🚀", "Nostalgic animation 🎨"]
+        }
+    ],
+    "Coffee & walk": [
+        {
+            id: "drink",
+            q: "What's your ultimate beverage order?",
+            options: ["Warm Cappuccino ☕", "Iced Vanilla Latte 🥤", "Oat Matcha Latte 🍵", "Hot Chocolate & mallows ☕🍫"]
+        },
+        {
+            id: "route",
+            q: "Where should our stroll take us?",
+            options: ["Botanical rose gardens 🌸", "Historic cobblestone street 🏛️", "Sunset waterfront promenade 🌅"]
+        }
+    ],
+    "Picnic": [
+        {
+            id: "spot",
+            q: "Where are we spreading our picnic blanket?",
+            options: ["Shady park under willow trees 🌳", "Sunny beach overlook 🏖️", "Botanical flower gardens 🌹"]
+        },
+        {
+            id: "treat",
+            q: "Must-have picnic treat?",
+            options: ["Fresh strawberries & cream 🍓", "Artisanal cheese & crackers 🧀", "Gourmet warm croissants 🥐"]
+        }
+    ],
+    "Mini golf": [
+        {
+            id: "stakes",
+            q: "What's the friendly competitive agreement?",
+            options: ["Winner gets ice cream 🍦", "Loser buys coffee ☕", "Zero points, 100% laughs 😜"]
+        },
+        {
+            id: "after",
+            q: "Post-game victory activity?",
+            options: ["Gelato shop run 🍨", "Arcade game frenzy 🎟️", "Sunset bench chatter 🌅"]
+        }
+    ],
+    "Surprise me": [
+        {
+            id: "intensity",
+            q: "How adventurous are you feeling?",
+            options: ["Cozy & cute surprise 🧸", "Spontaneous mini adventure 🚗", "Dressed-up evening magic 💫"]
+        },
+        {
+            id: "wish",
+            q: "Any secret wishlist detail?",
+            options: ["Live music & jazz 🎷", "Stargazing lookout 🌌", "Sweet dessert bar 🍰"]
+        }
+    ]
+};
+
+let userAnswers = {};
+
+function renderQuestionsStep() {
+    const container = document.getElementById('questions-container');
+    container.innerHTML = '';
+
+    const activeAct = picks.length ? picks[picks.length - 1] : "Coffee & walk";
+    const qList = questionPools[activeAct] || questionPools["Coffee & walk"];
+
+    qList.forEach((qItem, idx) => {
+        const qCard = document.createElement('div');
+        qCard.className = 'question-card';
+        qCard.innerHTML = `
+            <div class="q-title"><span>#${idx+1}</span> <span>${qItem.q}</span></div>
+            <div class="q-pills" id="qpills-${qItem.id}">
+                ${qItem.options.map(opt => `<button type="button" class="q-pill" data-qid="${qItem.id}" data-val="${opt}">${opt}</button>`).join('')}
+            </div>
+            <input type="text" class="q-custom-input" placeholder="Or type a custom detail... ✍️" data-qid="${qItem.id}" />
+        `;
+        container.appendChild(qCard);
+    });
+
+    // Wire choice pill events
+    document.querySelectorAll('.q-pill').forEach(btn => {
+        btn.addEventListener('click', function() {
+            SFX.click();
+            const qid = this.dataset.qid;
+            const val = this.dataset.val;
+            
+            // Unselect sibling pills
+            document.querySelectorAll(`.q-pill[data-qid="${qid}"]`).forEach(p => p.classList.remove('selected'));
+            this.classList.add('selected');
+            userAnswers[qid] = val;
+            setCompanionMood('happy', 'Great choice! ✨');
+        });
+    });
+
+    // Wire input events
+    document.querySelectorAll('.q-custom-input').forEach(inp => {
+        inp.addEventListener('focus', () => setCompanionMood('typing', 'Typing answer...'));
+        inp.addEventListener('input', function() {
+            const qid = this.dataset.qid;
+            userAnswers[qid] = this.value.trim();
+        });
+    });
+}
+
+lockBtn.addEventListener('click', () => {
+    if (!picks.length) return;
+    SFX.lock();
+    renderQuestionsStep();
+    goStep('step-3', 'step-3-5');
+});
+
+document.getElementById('skip-questions-btn').addEventListener('click', () => {
+    SFX.click();
+    proceedToTicket();
+});
+
+document.getElementById('to-step-4').addEventListener('click', () => {
+    SFX.click();
+    proceedToTicket();
+});
+
+function proceedToTicket() {
+    const actStr = picks.join(' + ');
+    document.getElementById('t-acts').textContent = actStr;
+    
+    // Format preferences summary
+    const prefs = Object.values(userAnswers).filter(Boolean);
+    const prefStr = prefs.length ? prefs.join(' • ') : "Tailored with warmth & butterflies ✨";
+    document.getElementById('t-prefs').textContent = prefStr;
+    document.getElementById('t-vibe').textContent = vibeSubText.textContent;
+    
+    const activeAct = picks[picks.length - 1];
+    const finalScene = optionScenes[activeAct] || optionScenes["Coffee & walk"];
+
+    const p4 = document.getElementById('p-box-4');
+    if (p4) p4.innerHTML = `<img src="${finalScene.img}" alt="${activeAct}" />`;
+
+    const p5 = document.getElementById('p-box-5');
+    if (p5) p5.innerHTML = `<img src="${finalScene.img}" alt="${activeAct}" />`;
+
+    // Generate Share Links & Messages
+    const summaryText = `${userName} said YES to our date! 💖\n\nPlan: ${actStr}\nPreferences: ${prefStr}\nVibe: ${vibeSubText.textContent}\n\nCan't wait! ☕✨`;
+    
+    const waUrl = `https://wa.me/?text=${encodeURIComponent(summaryText)}`;
+    document.getElementById('wa-link').href = waUrl;
+    
+    const emailSubject = encodeURIComponent(`Coffee Date RSVP for ${userName}! 💖`);
+    const emailUrl = `mailto:?subject=${emailSubject}&body=${encodeURIComponent(summaryText)}`;
+    document.getElementById('email-link').href = emailUrl;
+
+    // Copy button
+    document.getElementById('copy-summary-btn').onclick = () => {
+        SFX.click();
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(summaryText).then(() => showToast("Copied date summary to clipboard! 📋✨"));
+        } else {
+            showToast("Summary generated! Ready to share 💖");
+        }
+    };
+
+    confetti({particleCount:70,spread:75,origin:{y:0.5},colors:['#D92D62','#F8A5C2','#fff']});
+    goStep('step-3-5','step-4');
+}
+
+// ══════════════════════════════════════
+// STEP 4 → 5: 100+ DYNAMIC ROMANTIC MESSAGES POOL
+// ══════════════════════════════════════
+const romanticMessagesPool = {
+    "Dinner date": [
+        "I can't wait to sit across from you, sharing pasta and pretending I'm not nervous. Every bite will taste better because you're there.",
+        "They say the way to someone's heart is through their stomach. Well, consider my heart fully served, with extra garlic bread.",
+        "A candlelight dinner with you feels like stepping straight into my favorite love story.",
+        "I'll gladly give up the last slice of pizza or bite of cake just to see your eyes light up.",
+        "Looking forward to clinking glass frames, sharing laughs, and losing track of time together.",
+        "The food will be delicious, but looking at you across the table will be the highlight of my night.",
+        "Candlelight, warm conversations, and your presence — that is my definition of a perfect evening.",
+        "I'm already counting down the hours until we're seated at a quiet corner table together.",
+        "Dinner with you is not just a meal, it's a memory I know I'll treasure for a long time.",
+        "I'll hold your coat, pull out your chair, and listen to every story you want to share.",
+        "Here's to delicious appetizers, sweet desserts, and even sweeter moments with you.",
+        "You make the simplest dinner feel like a royal banquet full of joy and laughter.",
+        "I've got a seat saved right next to my heart, just for you.",
+        "Good food tastes great, but good food with you is absolute perfection.",
+        "If happiness were a menu item, our date together would be the chef's special.",
+        "Stealing glances across a table lit by soft candles is honestly my favorite dream.",
+        "I promise to listen to everything you say, even if I get distracted by how beautiful you are.",
+        "Setting the table for two, but setting my heart for just you."
+    ],
+    "Movie night": [
+        "I don't even care what we watch. I just want to be the one sitting next to you in the dark.",
+        "Movie night with you means I'll remember exactly zero plot points but every time our hands almost touched.",
+        "Popcorn in one hand, your hand in the other — that's the ultimate movie night setup.",
+        "If the movie gets scary, you can lean in close. If it's funny, I get to hear your laugh.",
+        "I'll double-check the popcorn butter level just to make sure it's perfect for you.",
+        "Dimmed theater lights and your warm presence right beside me is my idea of bliss.",
+        "Who needs cinema actors when the prettiest person in the world is sitting right next to me?",
+        "I'll share my snacks, give you the armrest, and hold your hand through every twist.",
+        "Looking forward to the post-movie stroll where we debate every single plot detail.",
+        "Whether it's a rom-com or a blockbuster, being with you makes it a 10/10 experience.",
+        "The best part of movie night is the quiet comfort of just being near you.",
+        "Cozy seats, dark screens, and bright feelings — that's our movie night plan.",
+        "I'll let you pick the film every single time, as long as I get to stay by your side.",
+        "Holding your hand in the middle of a dark theater feels like finding a secret haven.",
+        "No movie script could ever be as charming as your real smile.",
+        "Popcorn crunching, soft whispering, and subtle smiles in the dim light.",
+        "Ready to share popcorn, drinks, and unforgettable quiet moments with you.",
+        "You are the main character in every story I ever want to tell."
+    ],
+    "Coffee & walk": [
+        "A walk with you could turn the most boring street into the most beautiful place on earth.",
+        "I'll take my coffee with two sugars and one you. That's the perfect recipe.",
+        "Walking side-by-side with warm cups in hand is where my happiest thoughts reside.",
+        "Fresh coffee aroma, cool breeze, and your warm smile — nothing compares to this.",
+        "I will gladly walk ten thousand steps if every single step is taken beside you.",
+        "Sipping warm lattes while listening to your voice is my favorite melody.",
+        "Golden hour walks are pretty, but they're nothing compared to the light you bring.",
+        "I'll memorize your favorite coffee order so I can surprise you whenever you need a lift.",
+        "Every path feels romantic when we're walking down it together hand in hand.",
+        "A quiet café corner, two warm mugs, and endless conversations with you.",
+        "The best conversations are the ones that flow effortlessly while walking with you.",
+        "Coffee warms the hands, but your company warms my entire soul.",
+        "Let me carry your coffee, walk on the street side, and keep you smiling.",
+        "Two espresso shots for energy, but seeing you is what truly wakes up my heart.",
+        "I love how comfortable silence feels when we walk side by side.",
+        "Coffee dates with you are proof that simple moments are often the most magical.",
+        "Warm steam rising from our mugs while fresh butterflies flutter in my stomach.",
+        "Walking slow, talking deep, and holding onto moments that feel like home."
+    ],
+    "Picnic": [
+        "I'm packing sandwiches, strawberries, and an unreasonable amount of hope that you'll think this is romantic.",
+        "Under the open sky with a checkered blanket and you — life doesn't get better than this.",
+        "Sweet strawberries and sweet conversations with the sweetest person I know.",
+        "Lying on a green blanket watching clouds float by while holding your hand.",
+        "I'll bring all your favorite treats just to watch that happy smile appear.",
+        "Fresh air, soft sunshine, and your laughter echoing through the trees.",
+        "A afternoon picnic with you is like stepping into a peaceful, sunny dream.",
+        "Sharing sandwiches under willow trees with the person who has my heart.",
+        "Nature is beautiful, but you make every blossom look pale in comparison.",
+        "Let's forget the clock today and just enjoy sunshine and sweet moments.",
+        "Checkered blankets and warm laughter under a clear blue sky.",
+        "I'll pack the blanket, prepare the fruit, and cherish every second with you.",
+        "Picnics with you are full of warm sun, cool breeze, and endless joy.",
+        "Nibbling on snacks while soaking in the beauty of your presence.",
+        "Soft grass, sweet drinks, and the softest place in my heart for you.",
+        "I promised myself I'd make today special for you, and a picnic is just the start.",
+        "Every strawberry tastes sweeter when shared with you.",
+        "Sunbeams filtering through leaves onto the prettiest smile in the world."
+    ],
+    "Mini golf": [
+        "I should warn you: I'm terrible at mini golf but excellent at making you laugh while I miss every shot.",
+        "Mini golf with you means 10% actual playing and 90% laughing hysterically together.",
+        "I don't care who wins the game, because having you as my date makes me the ultimate winner.",
+        "I'll cheer for every shot you make and gladly take the penalty points.",
+        "Playful banter, high-fives, and celebratory ice cream — that's our golf date promise.",
+        "Watch out for my terrible golf swings, but watch out even more for how much I care for you.",
+        "Whether you get a hole-in-one or hit the windmill, I'll be right there cheering.",
+        "The course may have obstacles, but falling for you was completely effortless.",
+        "Ice cream rewards after mini golf with you sound like heaven on earth.",
+        "I'll celebrate your victories louder than anyone else on the course.",
+        "Losing at golf never felt so sweet, as long as I get to lose to you.",
+        "Putting balls into tiny holes is fun, but holding your hand after is the real prize.",
+        "Here's to silly golf obstacles and serious feelings for you.",
+        "I'll let you take extra turns if it means keeping that smile on your face.",
+        "A little friendly competition, a lot of sweet smiles, and endless fun.",
+        "Golfing under bright lights with the brightest star in my sky.",
+        "Ready to make memories on every single hole of the course with you.",
+        "Winner buys ice cream, but I'll buy it anyway because you deserve the world."
+    ],
+    "Surprise me": [
+        "You chose surprise? Perfect. That means you trust me, and I'm going to make it absolutely unforgettable.",
+        "A mystery date is waiting for you, packed with secret smiles and romantic surprises.",
+        "I've spent hours planning every detail of this surprise just to see your jaw drop.",
+        "Keep your eyes closed until I say so — a magical moment is waiting just for you.",
+        "Surprises are sweet, but seeing your delighted reaction is the greatest gift for me.",
+        "No spoilers allowed, but I guarantee butterflies and big smiles all date long.",
+        "Trusting me with a surprise date is the highest honor — I won't disappoint!",
+        "Every step of today's surprise is crafted to show you how special you are to me.",
+        "Expect the unexpected: warm moments, sweet treats, and pure magic.",
+        "I've got a secret itinerary that leads straight to your happiest memory.",
+        "A hidden location, a warm atmosphere, and endless devotion to you.",
+        "Curiosity looks cute on you! Get ready for an unforgettable adventure.",
+        "I love keeping secrets when the reveal is going to make you beam with joy.",
+        "The best surprises are the ones shared with the person you admire most.",
+        "Buckle up for a day full of thoughtful touches and genuine warmth.",
+        "Today's surprise date has one goal: to make you feel cherished beyond words.",
+        "Unwrapping this date together is going to be the sweetest part of my week.",
+        "A secret date plan made with love, care, and a spark of magic."
+    ]
+};
+
+function pickNote(activities) {
+    let pool = [];
+    activities.forEach(act => {
+        if (romanticMessagesPool[act]) pool = pool.concat(romanticMessagesPool[act]);
+    });
+    if (!pool.length) {
+        pool = romanticMessagesPool["Coffee & walk"];
+    }
+    
+    let used = [];
+    try { used = JSON.parse(sessionStorage.getItem('shownLoveNotes') || '[]'); } catch (e) { used = []; }
+
+    let available = pool.filter(n => !used.includes(n));
+    if (available.length === 0) { available = pool; used = []; }
+
+    const chosen = available[Math.floor(Math.random() * available.length)];
+    used.push(chosen);
+    if (used.length > 50) used.shift();
+
+    try { sessionStorage.setItem('shownLoveNotes', JSON.stringify(used)); } catch (e) {}
+    return chosen;
+}
+
+document.getElementById('to-step-5').addEventListener('click', () => {
+    SFX.click();
+    document.getElementById('note-body').textContent = pickNote(picks);
+    goStep('step-4','step-5');
+});
+
+// Randomize photo on DOM Load for Step 1
+window.addEventListener('DOMContentLoaded', () => {
+    const p1 = document.getElementById('p-box-1');
+    if (p1) {
+        const randPhoto = getRandomPhoto();
+        p1.innerHTML = `<img src="${randPhoto}" alt="Coffee & Rose Vibe" />`;
+    }
+});
+
+</script>
+</body>
+</html>

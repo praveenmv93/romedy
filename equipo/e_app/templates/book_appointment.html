@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Consultation - Your Health Clinic</title>
+    
+    <!-- Google Fonts & Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Hidden Scrollbars */
+        html {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        html::-webkit-scrollbar {
+            display: none;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FAF6F0; /* Linen background */
+            margin: 0;
+            padding: 0;
+            color: #2b302c;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Calm Breathing Rings Preloader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #FAF6F0;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s ease;
+        }
+        
+        #preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .breathing-loader-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .breathing-ring {
+            position: absolute;
+            border: 2px solid rgba(11, 76, 43, 0.15);
+            border-radius: 50%;
+            animation: breath 5s ease-in-out infinite;
+        }
+
+        .ring-1 {
+            width: 60px;
+            height: 60px;
+            animation-delay: 0s;
+        }
+
+        .ring-2 {
+            width: 100px;
+            height: 100px;
+            animation-delay: 0.7s;
+        }
+
+        .ring-3 {
+            width: 140px;
+            height: 140px;
+            animation-delay: 1.4s;
+        }
+
+        .loader-center-icon {
+            font-size: 2.2rem;
+            animation: heartBeatCalm 2.2s ease-in-out infinite;
+            z-index: 10;
+        }
+
+        @keyframes breath {
+            0%, 100% {
+                transform: scale(0.85);
+                opacity: 0.25;
+                border-color: rgba(11, 76, 43, 0.1);
+            }
+            50% {
+                transform: scale(1.12);
+                opacity: 0.85;
+                border-color: rgba(11, 76, 43, 0.35);
+                box-shadow: 0 0 15px rgba(11, 76, 43, 0.05);
+            }
+        }
+
+        @keyframes heartBeatCalm {
+            0%, 100% { transform: scale(1); opacity: 0.75; }
+            50% { transform: scale(1.06); opacity: 1; }
+        }
+        
+        .preloader-text {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #0b4c2b;
+            letter-spacing: 2px;
+            animation: pulse 1.8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Action Loading Overlay */
+        #action-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(250, 246, 240, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 9998;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        
+        #action-loader.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #action-loader-text {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #0b4c2b;
+            letter-spacing: 1px;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        /* Nav & Header styling */
+        header {
+            background: linear-gradient(135deg, #0b4c2b, #1d6f3e);
+            color: white;
+            text-align: center;
+            padding: 2.2em 0;
+            border-bottom: 4px solid #C5A880;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.4em;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        nav {
+            background-color: rgba(250, 246, 240, 0.95);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            text-align: center;
+            padding: 1.2em 0;
+        }
+
+        nav a {
+            text-decoration: none !important;
+            color: #495057;
+            padding: 0.65em 1.6em;
+            margin: 0 0.25em;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.92rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        nav a:hover,
+        nav a.active {
+            background-color: #0b4c2b;
+            color: white !important;
+            box-shadow: 0 4px 12px rgba(11, 76, 43, 0.15);
+        }
+
+        /* Form Container */
+        .booking-wrapper {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4em 1em;
+        }
+
+        .booking-card {
+            background-color: white;
+            padding: 3.5em;
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(11, 76, 43, 0.02);
+            border: 1px solid rgba(11, 76, 43, 0.04);
+            width: 100%;
+            max-width: 650px;
+        }
+
+        .booking-card h2 {
+            font-size: 2.2em;
+            font-weight: 800;
+            color: #0b4c2b;
+            margin-bottom: 1.5em;
+            text-align: center;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #0b4c2b;
+            font-size: 0.95rem;
+            margin-bottom: 0.5em;
+        }
+
+        .form-control {
+            border-radius: 12px;
+            padding: 0.85rem 1.1rem;
+            height: auto;
+            border: 1px solid rgba(11, 76, 43, 0.15);
+            background-color: #FAF8F5;
+            font-family: inherit;
+            color: #2b302c;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #0b4c2b;
+            background-color: white;
+            box-shadow: 0 0 0 0.2rem rgba(11, 76, 43, 0.1);
+        }
+
+        .btn-custom {
+            background: linear-gradient(135deg, #0b4c2b, #1d6f3e);
+            color: white !important;
+            border: none;
+            border-radius: 30px;
+            padding: 0.9em 3em;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(11, 76, 43, 0.15);
+            cursor: pointer;
+        }
+
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(11, 76, 43, 0.25);
+        }
+
+        footer {
+            background-color: #111412;
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            padding: 2.5em 0;
+            font-size: 0.9rem;
+        }
+        
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Calm Breathing Rings Preloader -->
+    <div id="preloader">
+        <div class="breathing-loader-container">
+            <div class="breathing-ring ring-1"></div>
+            <div class="breathing-ring ring-2"></div>
+            <div class="breathing-ring ring-3"></div>
+            <div class="loader-center-icon">💚</div>
+        </div>
+        <div class="preloader-text">WELCOME TO WELLNESS</div>
+    </div>
+
+    <!-- Active Loading Screen Overlay -->
+    <div id="action-loader">
+        <div class="breathing-loader-container">
+            <div class="breathing-ring ring-1"></div>
+            <div class="breathing-ring ring-2"></div>
+            <div class="breathing-ring ring-3"></div>
+            <div class="loader-center-icon">💚</div>
+        </div>
+        <div class="preloader-text" id="action-loader-text">Registering appointment with server...</div>
+    </div>
+
+    <header>
+        <h1>Your Health, Our Priority</h1>
+    </header>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/#services">Services</a>
+        <a href="/#doctors">Doctors</a>
+        <a href="/#contact">Contact</a>
+        <a href="{% url 'knowledge_hub' %}">Insights</a>
+        <a href="{% url 'dating_request' %}" style="color: #ff758c; font-weight: 600;">Coffee Date? 💖</a>
+        <a href="{% url 'book_appointment' %}" class="active">Book Appointment</a>
+    </nav>
+
+    <div class="booking-wrapper">
+        <div class="booking-card">
+            <h2>Book a Consultation</h2>
+
+            <form method="post" id="bookingForm">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="date" class="form-label">Preferred Date</label>
+                        <input type="date" name="date" id="date" class="form-control" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="time_slot" class="form-label">Preferred Time Slot</label>
+                        <select name="time_slot" id="time_slot" class="form-control" required>
+                            <option value="">Select a Slot</option>
+                            {% for val, label in time_slots %}
+                                <option value="{{ val }}">{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="doctor" class="form-label">Assign Specialist (Optional)</label>
+                    <select name="doctor" id="doctor" class="form-control">
+                        <option value="">Unassigned (Staff will allocate)</option>
+                        {% for doc in doctors %}
+                            <option value="{{ doc.id }}">Dr. {{ doc.get_full_name|default:doc.username }} ({{ doc.profile.specialty|default:"General Medicine" }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Dynamic NoSQL metadata: Insurance -->
+                <div class="form-group">
+                    <label for="insurance_provider" class="form-label">Insurance Provider (Optional)</label>
+                    <input type="text" name="insurance_provider" id="insurance_provider" class="form-control" placeholder="Enter provider name">
+                </div>
+
+                <div class="form-group">
+                    <label for="symptoms" class="form-label">Chief Symptoms / Reason for Visit</label>
+                    <textarea name="symptoms" id="symptoms" class="form-control" rows="4" placeholder="Briefly describe your symptoms" required></textarea>
+                </div>
+
+                <div class="text-center mt-5">
+                    <button type="submit" class="btn btn-custom">Confirm Appointment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Your Health Clinic. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Dismiss Preloader after exactly 1.2 seconds to showcase the calm breathing theme
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.classList.add('fade-out');
+            }, 1200);
+
+            const actionLoader = document.getElementById('action-loader');
+            const bookingForm = document.getElementById('bookingForm');
+            if (bookingForm) {
+                bookingForm.addEventListener('submit', function() {
+                    actionLoader.classList.add('active');
+                });
+            }
+            
+            // Set min date to today
+            const dateInput = document.getElementById('date');
+            if (dateInput) {
+                const today = new Date().toISOString().split('T')[0];
+                dateInput.setAttribute('min', today);
+            }
+        });
+    </script>
+</body>
+</html>
