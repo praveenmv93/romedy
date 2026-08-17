@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-c&m0f($_y$c9m8#%r!-di36(+02=a4olz3zivcy*k&58u_ao%#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -78,7 +79,7 @@ WSGI_APPLICATION = "equipo.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": BASE_DIR / "hospital_db.sqlite3",
     }
 }
 
@@ -123,7 +124,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 STATIC_URL = "/static/"  # Corrected: Added leading slash
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'media'),  # Or whatever folder your static files are in.
+    os.path.join(BASE_DIR, 'static'),
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 

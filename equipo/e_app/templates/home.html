@@ -5,137 +5,554 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Health, Our Priority</title>
+    <title>Your Health, Our Priority - Modern Medical Center</title>
+    
+    <!-- Google Fonts & Bootstrap/Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            line-height: 1.6;
-            background-color: #f8f9fa;
+        /* Smooth, calm scroll setups */
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+        html::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
         }
 
+        /* Calm Linen / Sage Palette */
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #2b302c; /* Softer readable slate-black */
+            line-height: 1.75;
+            background-color: #FAF6F0; /* Soft warm paper-linen background */
+            overflow-x: hidden;
+            letter-spacing: 0.2px;
+        }
+
+        /* Calm Breathing Rings Loader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #FAF6F0;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s ease;
+        }
+        
+        #preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .breathing-loader-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .breathing-ring {
+            position: absolute;
+            border: 2px solid rgba(11, 76, 43, 0.15);
+            border-radius: 50%;
+            animation: breath 5s ease-in-out infinite;
+        }
+
+        .ring-1 {
+            width: 60px;
+            height: 60px;
+            animation-delay: 0s;
+        }
+
+        .ring-2 {
+            width: 100px;
+            height: 100px;
+            animation-delay: 0.7s;
+        }
+
+        .ring-3 {
+            width: 140px;
+            height: 140px;
+            animation-delay: 1.4s;
+        }
+
+        .loader-center-icon {
+            font-size: 2.2rem;
+            animation: heartBeatCalm 2.2s ease-in-out infinite;
+            z-index: 10;
+        }
+
+        @keyframes breath {
+            0%, 100% {
+                transform: scale(0.85);
+                opacity: 0.25;
+                border-color: rgba(11, 76, 43, 0.1);
+            }
+            50% {
+                transform: scale(1.12);
+                opacity: 0.85;
+                border-color: rgba(11, 76, 43, 0.35);
+                box-shadow: 0 0 15px rgba(11, 76, 43, 0.05);
+            }
+        }
+
+        @keyframes heartBeatCalm {
+            0%, 100% { transform: scale(1); opacity: 0.75; }
+            50% { transform: scale(1.06); opacity: 1; }
+        }
+        
+        .preloader-text {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #0b4c2b;
+            letter-spacing: 2px;
+            animation: pulse 1.8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Action Loading Overlay */
+        #action-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(250, 246, 240, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 9998;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        
+        #action-loader.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #action-loader-text {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #0b4c2b;
+            letter-spacing: 1px;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        /* Header & Nav */
         header {
-            background: linear-gradient(135deg, #4CAF50, #2E8B57);
+            background: linear-gradient(135deg, #0b4c2b, #1d6f3e);
             color: white;
             text-align: center;
-            padding: 3em 0;
+            padding: 2.2em 0;
+            border-bottom: 4px solid #C5A880;
         }
 
         header h1 {
             margin: 0;
-            font-size: 3em;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-size: 2.4em;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
         }
 
         nav {
-            background-color: #e9ecef;
+            background-color: rgba(250, 246, 240, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
             text-align: center;
-            padding: 1.5em 0;
+            padding: 1.2em 0;
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
         }
 
         nav a {
-            text-decoration: none;
-            color: #333;
-            padding: 0.7em 1.5em;
-            margin: 0 1em;
-            border-radius: 8px;
-            transition: background-color 0.3s, color 0.3s;
+            text-decoration: none !important; /* Explicitly Remove Underlines */
+            color: #495057;
+            padding: 0.65em 1.6em;
+            margin: 0 0.25em;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.92rem;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-block;
         }
 
         nav a:hover,
         nav a.active {
-            background-color: #4CAF50;
-            color: white;
+            background-color: #0b4c2b;
+            color: white !important;
+            text-decoration: none !important; /* Ensure Hover lacks underlines */
+            box-shadow: 0 4px 12px rgba(11, 76, 43, 0.12);
         }
 
+        /* Hero */
         .hero {
-            background: url('{% static "images/hero-image.jpg" %}') center/cover no-repeat;
-            height: 600px;
+            background: linear-gradient(rgba(11, 76, 43, 0.6), rgba(29, 111, 62, 0.5)), url('{% static "images/hero-image.jpg" %}') center/cover no-repeat;
+            height: 620px;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: white;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(to top, #FAF6F0, transparent);
+            pointer-events: none;
         }
 
         .hero-content {
-            max-width: 900px;
-            padding: 2em;
+            max-width: 850px;
+            padding: 2.5em;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .hero-content h2 {
-            font-size: 3.5em;
-            margin-bottom: 0.7em;
+            font-size: 3.8em;
+            margin: 0 0 0.4em 0;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.15;
         }
 
         .hero-content p {
             font-size: 1.3em;
-            line-height: 1.8;
+            line-height: 1.7;
+            font-weight: 400;
+            margin: 0;
+            color: rgba(255, 255, 255, 0.95);
         }
 
-        .services {
-            padding: 4em 2em;
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Layout & Sections */
+        .section-container {
+            padding: 7em 2em;
+            max-width: 1200px;
+            margin: 0 auto;
             text-align: center;
         }
 
-        .services h2 {
-            font-size: 2.5em;
-            margin-bottom: 1.5em;
+        .section-title {
+            font-size: 2.6em;
+            margin-top: 0;
+            margin-bottom: 1.8em;
+            font-weight: 800;
+            color: #0b4c2b;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 4px;
+            background-color: #C5A880;
+            margin: 14px auto 0 auto;
+            border-radius: 2px;
         }
 
+        /* Parallax Reveal Classes */
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-element.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Services Cards Grid */
         .service-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3em;
-            padding: 0 2em;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5em;
+            padding: 0 1em;
         }
 
         .service-item {
             background-color: white;
-            padding: 3em;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            padding: 3.5em 2.5em;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.015);
+            border: 1px solid rgba(11, 76, 43, 0.03);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .service-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(11, 76, 43, 0.06);
+            border-color: rgba(11, 76, 43, 0.08);
         }
 
         .service-item img {
-            max-width: 120px;
-            margin-bottom: 1.5em;
+            max-width: 90px;
+            height: 90px;
+            object-fit: contain;
+            margin-bottom: 2em;
+            transition: transform 0.4s ease;
+        }
+        
+        .service-item:hover img {
+            transform: scale(1.08);
         }
 
         .service-item h3 {
-            margin-bottom: 0.8em;
+            margin: 0 0 0.7em 0;
+            font-size: 1.45em;
+            font-weight: 700;
+            color: #0b4c2b;
+        }
+
+        .service-item p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #495057;
+            line-height: 1.6;
+        }
+
+        /* Doctors Grid */
+        .doctor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5em;
+            padding: 0 1em;
+        }
+
+        .doctor-card {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.015);
+            border: 1px solid rgba(11, 76, 43, 0.03);
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .doctor-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04);
+        }
+
+        .doctor-img-placeholder {
+            height: 240px;
+            background: linear-gradient(135deg, #0b4c2b, #1d6f3e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .doctor-info {
+            padding: 2em;
+            text-align: left;
+        }
+
+        .doctor-info h3 {
+            margin: 0 0 0.3em 0;
+            font-weight: 700;
+            color: #0b4c2b;
+            font-size: 1.35em;
+        }
+
+        .doctor-specialty {
+            color: #C5A880;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1em;
+        }
+
+        .doctor-bio {
+            font-size: 0.9rem;
+            color: #495057;
+            margin-bottom: 1.2em;
+            line-height: 1.5;
+        }
+
+        .doctor-rating {
+            color: #FFC107;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        /* Contact Section split styles (Redesigned visual style) */
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 4em;
+            text-align: left;
+            padding: 0 1.5em;
+        }
+
+        .contact-info-block {
+            background-color: white;
+            padding: 3.5em;
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(11, 76, 43, 0.02);
+            border: 1px solid rgba(11, 76, 43, 0.04);
+        }
+
+        .contact-info-block h3 {
+            font-weight: 800;
+            color: #0b4c2b;
+            margin-bottom: 1.2em;
             font-size: 1.6em;
         }
 
+        .contact-detail {
+            margin-bottom: 1.2em;
+            font-size: 0.98rem;
+            color: #3b423d;
+        }
+
+        .contact-hours-table {
+            width: 100%;
+            font-size: 0.92rem;
+            border-collapse: collapse;
+            margin-top: 2em;
+        }
+
+        .contact-hours-table td {
+            padding: 0.8em 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            color: #495057;
+        }
+
+        .contact-hours-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .contact-form-block {
+            background-color: white;
+            padding: 3.5em;
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(11, 76, 43, 0.02);
+            border: 1px solid rgba(11, 76, 43, 0.04);
+        }
+
+        .contact-form-block h3 {
+            font-weight: 800;
+            color: #0b4c2b;
+            margin-bottom: 1.2em;
+            font-size: 1.6em;
+        }
+
+        .form-control {
+            border-radius: 12px;
+            padding: 0.85rem 1.1rem;
+            height: auto;
+            border: 1px solid rgba(11, 76, 43, 0.15);
+            background-color: #FAF8F5;
+            font-family: inherit;
+            color: #2b302c;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #0b4c2b;
+            background-color: white;
+            box-shadow: 0 0 0 0.2rem rgba(11, 76, 43, 0.1);
+        }
+
+        .btn-custom {
+            background: linear-gradient(135deg, #0b4c2b, #1d6f3e);
+            color: white !important;
+            border: none;
+            border-radius: 30px;
+            padding: 0.9em 2.8em;
+            font-weight: 700;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 15px rgba(11, 76, 43, 0.15);
+            cursor: pointer;
+        }
+
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(11, 76, 43, 0.25);
+        }
+
+        .btn-custom:active {
+            transform: translateY(0) scale(0.98);
+        }
+
         footer {
-            background-color: #343a40;
-            color: white;
+            background-color: #111412;
+            color: rgba(255, 255, 255, 0.6);
             text-align: center;
-            padding: 2em 0;
+            padding: 3.5em 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.9rem;
+        }
+        
+        footer p {
+            margin: 0;
+        }
+
+        @media (max-width: 992px) {
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: 2.5em;
+            }
         }
 
         @media (max-width: 768px) {
             .hero {
-                height: 400px;
+                height: 450px;
             }
 
             .hero-content h2 {
-                font-size: 2.5em;
+                font-size: 2.4em;
             }
 
-            .service-grid {
+            .service-grid, .doctor-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -143,6 +560,28 @@
 </head>
 
 <body>
+    <!-- Calm Breathing Rings Preloader (Inhale/Exhale rhythm) -->
+    <div id="preloader">
+        <div class="breathing-loader-container">
+            <div class="breathing-ring ring-1"></div>
+            <div class="breathing-ring ring-2"></div>
+            <div class="breathing-ring ring-3"></div>
+            <div class="loader-center-icon">💚</div>
+        </div>
+        <div class="preloader-text">WELCOME TO WELLNESS</div>
+    </div>
+
+    <!-- Active Loading Overlay (Nav / Button Interceptions) -->
+    <div id="action-loader">
+        <div class="breathing-loader-container">
+            <div class="breathing-ring ring-1"></div>
+            <div class="breathing-ring ring-2"></div>
+            <div class="breathing-ring ring-3"></div>
+            <div class="loader-center-icon">💚</div>
+        </div>
+        <div id="action-loader-text">Connecting securely to clinic hub...</div>
+    </div>
+
     <header>
         <h1>Your Health, Our Priority</h1>
     </header>
@@ -150,40 +589,155 @@
     <nav>
         <a href="#home">Home</a>
         <a href="#services">Services</a>
-        <a href="{% url 'generate_pdf' %}">Doctors</a>
-        <a href="{% url 'generate_csv' %}">Generate</a>
+        <a href="#doctors">Doctors</a>
         <a href="#contact">Contact</a>
+        <a href="{% url 'knowledge_hub' %}">Insights</a>
+        <a href="{% url 'dating_request' %}" style="background: linear-gradient(135deg, #D92D62, #ff758c); color: white !important; font-weight: 700; border-radius: 100px; padding: 0.65em 1.4em; box-shadow: 0 4px 12px rgba(217,45,98,0.25);">Coffee Date? ☕💖</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'book_appointment' %}">Book Appointment</a>
+            {% if user.profile.role == 'doctor' %}
+                <a href="{% url 'doctor_dashboard' %}">Dr. Dashboard</a>
+            {% elif user.profile.role == 'staff' %}
+                <a href="{% url 'staff_dashboard' %}">Staff Dashboard</a>
+            {% endif %}
+            <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'signup' %}">Sign Up</a>
+        {% endif %}
     </nav>
 
-    <div class="hero">
+    <div class="hero" id="home">
         <div class="hero-content">
             <h2>Welcome to a Healthier You</h2>
             <p>Providing comprehensive and compassionate healthcare services for you and your family.</p>
         </div>
     </div>
 
-    <section class="services" id="services">
-        <h2>Our Services</h2>
+    <!-- Services Section -->
+    <section class="section-container" id="services">
+        <h2 class="section-title reveal-element">Our Services</h2>
         <div class="service-grid">
-            <div class="service-item">
+            <div class="service-item reveal-element">
                 <img src="{% static 'images/hiny-green-plus-sign.webp' %}" alt="General Checkup">
                 <h3>General Checkups</h3>
                 <p>Regular checkups for your overall health and well-being.</p>
             </div>
-            <div class="service-item">
+            <div class="service-item reveal-element">
                 <img src="{% static 'images/specialist-care.png' %}" alt="Specialist Care">
                 <h3>Specialist Care</h3>
                 <p>Expert care from our team of specialized doctors.</p>
             </div>
-            <div class="service-item">
+            <div class="service-item reveal-element">
                 <img src="{% static 'images/emergency-services.png' %}" alt="Emergency Services">
                 <h3>Emergency Services</h3>
                 <p>24/7 emergency care for critical situations.</p>
             </div>
-            <div class="service-item">
+            <div class="service-item reveal-element">
                 <img src="{% static 'images/pharmacy.png' %}" alt="Pharmacy">
                 <h3>Pharmacy</h3>
                 <p>Convenient on-site pharmacy for all your medication needs.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctors Section -->
+    <section class="section-container" id="doctors" style="background-color: white; max-width: 100%;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h2 class="section-title reveal-element">Our Medical Specialists</h2>
+            <div class="doctor-grid">
+                {% if doctors %}
+                    {% for doc in doctors %}
+                        <div class="doctor-card reveal-element">
+                            <div class="doctor-img-placeholder">👨‍⚕️</div>
+                            <div class="doctor-info">
+                                <h3>Dr. {{ doc.get_full_name|default:doc.username }}</h3>
+                                <div class="doctor-specialty">{{ doc.profile.specialty|default:"General Medicine" }}</div>
+                                <p class="doctor-bio">Providing dedicated care and treatment for all patients at our clinic.</p>
+                                <span class="doctor-rating">⭐ 4.9 Rating</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <!-- Fallback premium profiles in case no doctor profiles are configured in DB yet -->
+                    <div class="doctor-card reveal-element">
+                        <div class="doctor-img-placeholder">👨‍⚕️</div>
+                        <div class="doctor-info">
+                            <h3>Dr. Sarah Jenkins</h3>
+                            <div class="doctor-specialty">Cardiologist</div>
+                            <p class="doctor-bio">Expert in diagnostic and preventative cardiology with over 12 years of clinical research experience.</p>
+                            <span class="doctor-rating">⭐ 5.0 Rating</span>
+                        </div>
+                    </div>
+                    <div class="doctor-card reveal-element">
+                        <div class="doctor-img-placeholder">👩‍⚕️</div>
+                        <div class="doctor-info">
+                            <h3>Dr. Robert Chen</h3>
+                            <div class="doctor-specialty">Pediatrician</div>
+                            <p class="doctor-bio">Providing friendly and comprehensive pediatric medicine from neonatal care to adolescent health.</p>
+                            <span class="doctor-rating">⭐ 4.9 Rating</span>
+                        </div>
+                    </div>
+                    <div class="doctor-card reveal-element">
+                        <div class="doctor-img-placeholder">👨‍⚕️</div>
+                        <div class="doctor-info">
+                            <h3>Dr. Emily Watson</h3>
+                            <div class="doctor-specialty">Neurologist</div>
+                            <p class="doctor-bio">Specializing in neurological health, diagnostic neurophysiology, and personalized patient therapies.</p>
+                            <span class="doctor-rating">⭐ 4.9 Rating</span>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section-container" id="contact">
+        <h2 class="section-title reveal-element">Get In Touch</h2>
+        <div class="contact-layout">
+            <div class="contact-info-block reveal-element">
+                <h3>Contact Information</h3>
+                <div class="contact-detail">📍 <strong>Address:</strong> 100 Medical Center Parkway, Suite 400, Chicago, IL</div>
+                <div class="contact-detail">📞 <strong>Phone:</strong> +1 (555) 893-2940</div>
+                <div class="contact-detail">✉️ <strong>Email:</strong> support@healthclinic.org</div>
+                
+                <h4 class="mt-5 font-weight-bold" style="color: #0b4c2b; font-size: 1.15em;">Clinic Operating Hours</h4>
+                <table class="contact-hours-table">
+                    <tr>
+                        <td>Monday - Friday</td>
+                        <td class="text-right font-weight-bold">8:00 AM - 8:00 PM</td>
+                    </tr>
+                    <tr>
+                        <td>Saturday</td>
+                        <td class="text-right font-weight-bold">9:00 AM - 5:00 PM</td>
+                    </tr>
+                    <tr>
+                        <td>Sunday</td>
+                        <td class="text-right text-danger font-weight-bold">Closed</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="contact-form-block reveal-element">
+                <h3>Send a Message</h3>
+                <form id="contactForm" onsubmit="event.preventDefault(); alert('Thank you! Your message has been received.');">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <input type="text" class="form-control" placeholder="Full Name" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input type="email" class="form-control" placeholder="Email Address" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Subject" required>
+                    </div>
+                    <div class="form-group mb-4">
+                        <textarea class="form-control" rows="4" placeholder="How can we help you?" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-custom">Submit Form</button>
+                </form>
             </div>
         </div>
     </section>
@@ -194,21 +748,81 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Dismiss Preloader after exactly 1.2 seconds to showcase the calm breathing theme
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.classList.add('fade-out');
+            }, 1200);
+
+            // Action Loader
+            const actionLoader = document.getElementById('action-loader');
+            const actionLoaderText = document.getElementById('action-loader-text');
+            const actionLinks = document.querySelectorAll('nav a, footer a');
+
+            actionLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = link.getAttribute('href');
+                    
+                    if (href && href.startsWith('#')) {
+                        return;
+                    }
+                    
+                    actionLoader.classList.add('active');
+                    
+                    if (href.includes('generate-csv')) {
+                        actionLoaderText.textContent = "Scraping medical codes database and exporting CSV... Please hold.";
+                    } else if (href.includes('generate-pdf')) {
+                        actionLoaderText.textContent = "Opening consultation report builder...";
+                    } else if (href.includes('login')) {
+                        actionLoaderText.textContent = "Opening secure login gateway...";
+                    } else if (href.includes('signup')) {
+                        actionLoaderText.textContent = "Loading registration portal...";
+                    } else if (href.includes('book')) {
+                        actionLoaderText.textContent = "Loading appointment booking module...";
+                    } else if (href.includes('knowledge')) {
+                        actionLoaderText.textContent = "Connecting to Medical Knowledge Hub...";
+                    } else {
+                        actionLoaderText.textContent = "Connecting to requested clinic section...";
+                    }
+                });
+            });
+
+            // Intersection Observer for Scroll Reveals
+            const revealElements = document.querySelectorAll('.reveal-element');
+            const observerOptions = {
+                threshold: 0.12,
+                rootMargin: '0px 0px -55px 0px'
+            };
+            
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            revealElements.forEach(item => {
+                revealObserver.observe(item);
+            });
+
+            // Active nav links scrolling
             const navLinks = document.querySelectorAll('nav a');
-            const sections = document.querySelectorAll('section');
+            const sections = document.querySelectorAll('section, .hero, footer');
 
             function setActiveLink() {
                 let currentSection = '';
                 sections.forEach(section => {
                     const sectionTop = section.offsetTop;
-                    if (window.scrollY >= sectionTop - 50) {
+                    if (window.scrollY >= sectionTop - 150) {
                         currentSection = section.getAttribute('id');
                     }
                 });
 
                 navLinks.forEach(link => {
                     link.classList.remove('active');
-                    if (link.getAttribute('href').includes(currentSection)) {
+                    if (link.getAttribute('href').includes(currentSection) && currentSection) {
                         link.classList.add('active');
                     }
                 });

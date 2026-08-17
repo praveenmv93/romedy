@@ -5,10 +5,11 @@ import shutil
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
 from django.utils import timezone
 from e_app.forms import ConsultationForm
+from e_app.models import Appointment
 from weasyprint import HTML
 
 logger = logging.getLogger(__name__)
@@ -67,7 +68,8 @@ def prepare_context(data, image_path, request):
 def generate_pdf_response(html_string, filename):
     """Generate the PDF file and return it as a response."""
     try:
-        pdf_file = HTML(string=html_string).write_pdf()
+        # Optimized with base_url to fetch local images instantly without DNS/HTTP lookups
+        pdf_file = HTML(string=html_string, base_url=settings.BASE_DIR).write_pdf()
         response = HttpResponse(pdf_file, content_type='application/pdf')
         response['Content-Disposition'] = f'attachment; filename="{filename}"'
         logger.info(f"PDF generated: {filename}")
@@ -78,6 +80,14 @@ def generate_pdf_response(html_string, filename):
 
 
 def generate_pdf(request):
+    appointment_id = request.GET.get('appointment_id') or request.POST.get('appointment_id')
+    appointment = None
+    if appointment_id:
+        try:
+            appointment = Appointment.objects.get(id=appointment_id)
+        except Appointment.DoesNotExist:
+            pass
+
     if request.method == 'POST':
         form = ConsultationForm(request.POST, request.FILES)
         if form.is_valid():
@@ -99,6 +109,11 @@ def generate_pdf(request):
                 # Clear temporary stored images
                 clear_folder(os.path.join(settings.MEDIA_ROOT, 'images'))
 
+                # If appointment is specified, mark it complete!
+                if appointment:
+                    appointment.status = 'completed'
+                    appointment.save()
+
                 return response
 
             except Exception as e:
@@ -111,9 +126,24 @@ def generate_pdf(request):
             return HttpResponse(f"Invalid form data: {errors}", status=400)
 
     else:
-        form = ConsultationForm()
+        # Prepopulate fields if appointment exists
+        initial_data = {}
+        if appointment:
+            initial_data = {
+                'clinic_name': 'Your Health Clinic',
+                'patient_first_name': appointment.patient.first_name or appointment.patient.username,
+                'patient_last_name': appointment.patient.last_name or '',
+                'patient_dob': appointment.date,  # Fallback
+                'patient_contact': appointment.patient.profile.phone if hasattr(appointment.patient, 'profile') else '',
+                'chief_complaint': appointment.symptoms,
+            }
+            if appointment.doctor:
+                initial_data['physician_name'] = appointment.doctor.get_full_name() or appointment.doctor.username
+                initial_data['physician_contact'] = appointment.doctor.profile.phone if hasattr(appointment.doctor, 'profile') else ''
 
-    return render(request, 'generate_report.html', {'form': form})
+        form = ConsultationForm(initial=initial_data)
+
+    return render(request, 'generate_report.html', {'form': form, 'appointment': appointment})
 
 
 def get_client_ip(request):

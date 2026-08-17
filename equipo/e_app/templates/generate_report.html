@@ -3,122 +3,508 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generate Consultation Report</title>
+    <title>Generate Consultation Report - Your Health Clinic</title>
+    
+    <!-- Bootstrap & Google Fonts -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+    
     <style>
+        /* Modern Scroll Setup */
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        html::-webkit-scrollbar {
+            display: none;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #2b302c;
+            line-height: 1.75;
+            background-color: #FAF6F0; /* Soothing warm linen */
+            overflow-x: hidden;
+        }
+
+        /* Calm Breathing Rings Preloader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #FAF6F0;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s ease;
+        }
+        
+        #preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .breathing-loader-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .breathing-ring {
+            position: absolute;
+            border: 2px solid rgba(11, 76, 43, 0.15);
+            border-radius: 50%;
+            animation: breath 5s ease-in-out infinite;
+        }
+
+        .ring-1 {
+            width: 60px;
+            height: 60px;
+            animation-delay: 0s;
+        }
+
+        .ring-2 {
+            width: 100px;
+            height: 100px;
+            animation-delay: 0.7s;
+        }
+
+        .ring-3 {
+            width: 140px;
+            height: 140px;
+            animation-delay: 1.4s;
+        }
+
+        .loader-center-icon {
+            font-size: 2.2rem;
+            animation: heartBeatCalm 2.2s ease-in-out infinite;
+            z-index: 10;
+        }
+
+        @keyframes breath {
+            0%, 100% {
+                transform: scale(0.85);
+                opacity: 0.25;
+                border-color: rgba(11, 76, 43, 0.1);
+            }
+            50% {
+                transform: scale(1.12);
+                opacity: 0.85;
+                border-color: rgba(11, 76, 43, 0.35);
+                box-shadow: 0 0 15px rgba(11, 76, 43, 0.05);
+            }
+        }
+
+        @keyframes heartBeatCalm {
+            0%, 100% { transform: scale(1); opacity: 0.75; }
+            50% { transform: scale(1.06); opacity: 1; }
+        }
+        
+        .preloader-text {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #0b4c2b;
+            letter-spacing: 2px;
+            animation: pulse 1.8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Action Loading Overlay */
+        #action-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(250, 246, 240, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 9998;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        
+        #action-loader.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #action-loader-text {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #0b4c2b;
+            letter-spacing: 1px;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        /* Header & Nav */
+        header {
+            background: linear-gradient(135deg, #0b4c2b, #1d6f3e);
+            color: white;
+            text-align: center;
+            padding: 2.2em 0;
+            border-bottom: 4px solid #C5A880;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.4em;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        nav {
+            background-color: rgba(250, 246, 240, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            text-align: center;
+            padding: 1.2em 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            text-decoration: none !important; /* Remove Underlines */
+            color: #495057;
+            padding: 0.65em 1.6em;
+            margin: 0 0.25em;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.92rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        nav a:hover,
+        nav a.active {
+            background-color: #0b4c2b;
+            color: white !important;
+            box-shadow: 0 4px 12px rgba(11, 76, 43, 0.12);
+        }
+
+        /* Form Container */
         .form-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+            max-width: 900px;
+            margin: 3em auto;
+            padding: 3.5em;
+            background-color: white;
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(11, 76, 43, 0.02);
+            border: 1px solid rgba(11, 76, 43, 0.04);
         }
-        .form-header {
-            margin-bottom: 20px;
+
+        .form-header h2 {
+            font-size: 2.2em;
+            font-weight: 800;
+            color: #0b4c2b;
+            margin-bottom: 1.5em;
+            position: relative;
+            display: inline-block;
         }
+
+        .form-header h2::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 4px;
+            background-color: #C5A880;
+            margin: 10px auto 0 auto;
+            border-radius: 2px;
+        }
+
         .form-label {
-            font-weight: bold;
+            font-weight: 600;
+            color: #0b4c2b;
+            font-size: 0.95rem;
+            margin-bottom: 0.5em;
+        }
+
+        .form-control {
+            border-radius: 12px;
+            padding: 0.85rem 1.1rem;
+            height: auto;
+            border: 1px solid rgba(11, 76, 43, 0.15);
+            background-color: #FAF8F5;
+            font-family: inherit;
+            color: #2b302c;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #0b4c2b;
+            background-color: white;
+            box-shadow: 0 0 0 0.2rem rgba(11, 76, 43, 0.1);
+        }
+
+        .form-control-file {
+            border: 1px dashed rgba(11, 76, 43, 0.2);
+            padding: 1.5em;
+            border-radius: 12px;
+            background-color: #FAF8F5;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .form-control-file:focus {
+            outline: none;
+            border-color: #0b4c2b;
+            background-color: white;
+        }
+
+        .btn-custom {
+            background: linear-gradient(135deg, #0b4c2b, #1d6f3e);
+            color: white !important;
+            border: none;
+            border-radius: 30px;
+            padding: 0.9em 3em;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.3px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(11, 76, 43, 0.15);
+        }
+
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(11, 76, 43, 0.25);
+        }
+
+        .btn-custom:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        footer {
+            background-color: #111412;
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            padding: 3.5em 0;
+            font-size: 0.9rem;
+            margin-top: 5em;
+        }
+        
+        footer p {
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 2em;
+                margin: 1.5em;
+            }
         }
     </style>
 </head>
 <body>
-<div class="container form-container">
-    <div class="form-header text-center">
-        <h1>Generate Consultation Report</h1>
+
+
+
+    <!-- Active Loading Screen Overlay (PDF generation takes time) -->
+    <div id="action-loader">
+        <div class="breathing-loader-container">
+            <div class="breathing-ring ring-1"></div>
+            <div class="breathing-ring ring-2"></div>
+            <div class="breathing-ring ring-3"></div>
+            <div class="loader-center-icon">💚</div>
+        </div>
+        <div id="action-loader-text">Compiling consultation details...</div>
     </div>
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="id_clinic_name" class="form-label">Clinic Name</label>
-                <input type="text" name="clinic_name" id="id_clinic_name" class="form-control"
-                       placeholder="Clinic Name" required maxlength="255">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="id_physician_name" class="form-label">Physician Name</label>
-                <input type="text" name="physician_name" id="id_physician_name" class="form-control"
-                       placeholder="Physician Name" required maxlength="255">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="id_clinic_logo" class="form-label">Clinic Logo</label>
-            <input type="file" name="clinic_logo" id="id_clinic_logo" class="form-control-file" accept=".png, .jpeg" required>
-            <small class="form-text text-muted">Accepted formats: .png, .jpeg</small>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="id_physician_contact" class="form-label">Physician Contact</label>
-                <input type="text" name="physician_contact" id="id_physician_contact" class="form-control"
-                       placeholder="Physician Contact" required pattern="\d{10}"
-                       maxlength="10" minlength="10"
-                       title="Please enter a valid phone number with exactly 10 digits">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="id_patient_first_name" class="form-label">Patient First Name</label>
-                <input type="text" name="patient_first_name" id="id_patient_first_name" class="form-control"
-                       placeholder="Patient First Name" required maxlength="255">
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="id_patient_last_name" class="form-label">Patient Last Name</label>
-                <input type="text" name="patient_last_name" id="id_patient_last_name" class="form-control"
-                       placeholder="Patient Last Name" required maxlength="255">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="id_patient_dob" class="form-label">Patient DOB</label>
-                <input type="date" name="patient_dob" id="id_patient_dob" class="form-control" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="id_patient_contact" class="form-label">Patient Contact</label>
-            <input type="text" name="patient_contact" id="id_patient_contact" class="form-control"
-                   placeholder="Patient Contact" required pattern="\d{10}"
-                   maxlength="10" minlength="10"
-                   title="Please enter a valid phone number with exactly 10 digits">
-        </div>
-        <div class="form-group">
-            <label for="id_chief_complaint" class="form-label">Chief Complaint</label>
-            <textarea name="chief_complaint" id="id_chief_complaint" class="form-control" rows="5"
-                      placeholder="Chief Complaint" required maxlength="5000"></textarea>
-            <script>
-                CKEDITOR.replace('id_chief_complaint', {
-                    toolbar: [
-                        { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline' ] },
-                        { name: 'paragraph', items: [ 'NumberedList', 'BulletedList' ] },
-                        { name: 'links', items: [ 'Link', 'Unlink' ] },
-                        { name: 'insert', items: [ 'Image' ] },
-                        { name: 'styles', items: [ 'Styles', 'Format' ] }
-                    ],
-                    height: 200
-                });
-            </script>
-        </div>
-        <div class="form-group">
-            <label for="id_consultation_note" class="form-label">Consultation Note</label>
-            <textarea name="consultation_note" id="id_consultation_note" class="form-control" rows="5"
-                      placeholder="Consultation Note" required maxlength="5000"></textarea>
-            <script>
-                CKEDITOR.replace('id_consultation_note', {
-                    toolbar: [
-                        { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline' ] },
-                        { name: 'paragraph', items: [ 'NumberedList', 'BulletedList' ] },
-                        { name: 'links', items: [ 'Link', 'Unlink' ] },
-                        { name: 'insert', items: [ 'Image' ] },
-                        { name: 'styles', items: [ 'Styles', 'Format' ] }
-                    ],
-                    height: 200
-                });
-            </script>
-        </div>
-        <div class="form-group text-center">
-            <button type="submit" class="btn btn-primary">Generate Report</button>
-        </div>
-    </form>
-</div>
+    <header>
+        <h1>Your Health, Our Priority</h1>
+    </header>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <nav>
+        <a href="/#home">Home</a>
+        <a href="/#services">Services</a>
+        <a href="/#doctors">Doctors</a>
+        <a href="/#contact">Contact</a>
+        <a href="{% url 'knowledge_hub' %}">Insights</a>
+        <a href="{% url 'dating_request' %}" style="color: #ff758c; font-weight: 600;">Coffee Date? 💖</a>
+        {% if user.is_authenticated %}
+            {% if user.profile.role == 'doctor' %}
+                <a href="{% url 'doctor_dashboard' %}" class="active">Dr. Dashboard</a>
+            {% elif user.profile.role == 'staff' %}
+                <a href="{% url 'staff_dashboard' %}" class="active">Staff Dashboard</a>
+            {% endif %}
+            <a href="{% url 'logout' %}">Logout</a>
+        {% endif %}
+    </nav>
+
+    <div class="container">
+        <div class="form-container">
+            <div class="form-header text-center">
+                <h2>Create Consultation Report</h2>
+            </div>
+
+            <form method="post" enctype="multipart/form-data" id="reportForm">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="id_clinic_name" class="form-label">Clinic Name</label>
+                        <input type="text" name="clinic_name" id="id_clinic_name" class="form-control"
+                               placeholder="Enter clinic name" required maxlength="255">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="id_physician_name" class="form-label">Physician Name</label>
+                        <input type="text" name="physician_name" id="id_physician_name" class="form-control"
+                               placeholder="Enter physician name" required maxlength="255">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_clinic_logo" class="form-label">Clinic Logo</label>
+                    <input type="file" name="clinic_logo" id="id_clinic_logo" class="form-control-file" accept=".png, .jpeg" required>
+                    <small class="form-text text-muted">Please upload a high-resolution logo image in PNG or JPEG format.</small>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="id_physician_contact" class="form-label">Physician Contact</label>
+                        <input type="text" name="physician_contact" id="id_physician_contact" class="form-control"
+                               placeholder="10-digit mobile number" required pattern="\d{10}"
+                               maxlength="10" minlength="10"
+                               title="Please enter a valid phone number with exactly 10 digits">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="id_patient_first_name" class="form-label">Patient First Name</label>
+                        <input type="text" name="patient_first_name" id="id_patient_first_name" class="form-control"
+                               placeholder="First name" required maxlength="255">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="id_patient_last_name" class="form-label">Patient Last Name</label>
+                        <input type="text" name="patient_last_name" id="id_patient_last_name" class="form-control"
+                               placeholder="Last name" required maxlength="255">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="id_patient_dob" class="form-label">Patient Date of Birth</label>
+                        <input type="date" name="patient_dob" id="id_patient_dob" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_patient_contact" class="form-label">Patient Contact</label>
+                    <input type="text" name="patient_contact" id="id_patient_contact" class="form-control"
+                           placeholder="10-digit mobile number" required pattern="\d{10}"
+                           maxlength="10" minlength="10"
+                           title="Please enter a valid phone number with exactly 10 digits">
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_chief_complaint" class="form-label">Chief Complaint</label>
+                    <textarea name="chief_complaint" id="id_chief_complaint" class="form-control" rows="5"
+                              placeholder="Describe patient's chief complaint" required maxlength="5000"></textarea>
+                    <script>
+                        CKEDITOR.replace('id_chief_complaint', {
+                            toolbar: [
+                                { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline' ] },
+                                { name: 'paragraph', items: [ 'NumberedList', 'BulletedList' ] },
+                                { name: 'links', items: [ 'Link', 'Unlink' ] },
+                                { name: 'styles', items: [ 'Styles', 'Format' ] }
+                            ],
+                            height: 180
+                        });
+                    </script>
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_consultation_note" class="form-label">Consultation Note</label>
+                    <textarea name="consultation_note" id="id_consultation_note" class="form-control" rows="5"
+                              placeholder="Enter diagnostic consultation summary" required maxlength="5000"></textarea>
+                    <script>
+                        CKEDITOR.replace('id_consultation_note', {
+                            toolbar: [
+                                { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline' ] },
+                                { name: 'paragraph', items: [ 'NumberedList', 'BulletedList' ] },
+                                { name: 'links', items: [ 'Link', 'Unlink' ] },
+                                { name: 'styles', items: [ 'Styles', 'Format' ] }
+                            ],
+                            height: 180
+                        });
+                    </script>
+                </div>
+                
+                <div class="form-group text-center mt-5">
+                    <button type="submit" class="btn btn-custom">Generate Report</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Your Health Clinic. All rights reserved.</p>
+    </footer>
+
+    <!-- JS Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+
+            // Active loading spinner overlay
+            const actionLoader = document.getElementById('action-loader');
+            const actionLoaderText = document.getElementById('action-loader-text');
+            const actionLinks = document.querySelectorAll('nav a, footer a');
+
+            actionLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = link.getAttribute('href');
+                    if (href && href.startsWith('#') || href.startsWith('/#')) {
+                        return;
+                    }
+                    actionLoader.classList.add('active');
+                    actionLoaderText.textContent = "Connecting securely to the clinic hub...";
+                });
+            });
+
+            // Intercept form submission
+            const reportForm = document.getElementById('reportForm');
+            if (reportForm) {
+                reportForm.addEventListener('submit', function() {
+                    for (instance in CKEDITOR.instances) {
+                        CKEDITOR.instances[instance].updateElement();
+                    }
+                    actionLoader.classList.add('active');
+                    actionLoaderText.textContent = "Processing and rendering PDF report... Please breathe in and out slowly.";
+                    setTimeout(() => {
+                        actionLoader.classList.remove('active');
+                    }, 10000);
+                });
+            }
+        });
+    </script>
 </body>
 </html>
